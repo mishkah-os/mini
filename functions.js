@@ -50,6 +50,8 @@
       next.env = Object.assign({}, state.env);
       next.env.lang = next.env.lang === 'ar' ? 'en' : 'ar';
       next.env.dir = next.env.lang === 'ar' ? 'rtl' : 'ltr';
+      next.data = JSON.parse(JSON.stringify(state.data));
+      applyTranslationsDeep(next.data, next.env.lang);
       return next;
     });
   }
