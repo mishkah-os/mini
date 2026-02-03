@@ -15,140 +15,198 @@
   var F = BrockerFunctions || global.BrockerFunctions;
 
   function renderStories(db) {
-    var items = db.data.users;
+    var items = db.data.users || [];
     var list = [];
     var i;
     for (i = 0; i < items.length; i += 1) {
-      var userLang = F.getUserLang(db, items[i].id) || {};
       list.push(
         UI.StoryPill({}, [
-          UI.Avatar({}, [
-            D.Img({ attrs: { src: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop', class: 'h-full w-full rounded-full object-cover' } }, [])
+          UI.Avatar({ size: 'md' }, [
+            D.Img({ attrs: { src: items[i].avatar_url || '', class: 'h-full w-full object-cover', alt: items[i].display_name || '' } }, [])
           ]),
-          D.Div({ attrs: { class: 'text-xs mobail-muted text-center max-w-[72px]' } }, [userLang.full_name || ''])
+          D.Div({ attrs: { class: 'ui-text-small ui-text-muted text-center max-w-[88px]' } }, [items[i].display_name || ''])
         ])
       );
     }
-    return D.Div({ attrs: { class: 'flex gap-4 overflow-x-auto mobail-scroll px-6' } }, list);
+    return UI.List({ direction: 'row', attrs: { class: 'pb-2' } }, list);
+  }
+
+  function renderFilters(db) {
+    var filters = db.data.filters || [];
+    var output = [];
+    var i;
+    for (i = 0; i < filters.length; i += 1) {
+      output.push(
+        UI.Chip({}, [F.t(db, filters[i].label_key)])
+      );
+    }
+    return UI.FilterChips({}, output);
   }
 
   function renderListings(db) {
-    var listings = db.data.listings;
+    var listings = db.data.listings || [];
     var output = [];
     var i;
     for (i = 0; i < listings.length; i += 1) {
-      var listingLang = F.getListingLang(db, listings[i].id) || {};
-      var media = F.getMedia(db, listings[i].primary_media_id) || {};
+      var listingMedia = listings[i].primary_media || {};
       output.push(
         UI.ListingCard({}, [
-          UI.MediaThumb({ attrs: { src: media.media_url || '', alt: listingLang.headline || '' } }),
-          D.Div({ attrs: { class: 'flex items-center justify-between' } }, [
-            D.Div({ attrs: { class: 'text-sm font-semibold' } }, [listingLang.headline || '']),
-            UI.Badge({}, [listings[i].listing_type])
+          UI.MediaThumb({}, [
+            D.Img({ attrs: { src: listingMedia.media_url || '', class: 'w-full h-48 object-cover', alt: listings[i].headline || '' } }, [])
           ]),
-          D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [listingLang.excerpt || '']),
-          D.Div({ attrs: { class: 'flex items-center justify-between' } }, [
-            D.Div({ attrs: { class: 'text-sm font-semibold text-[var(--primary)]' } }, [F.formatPrice(listings[i])]),
-            D.A({ attrs: { class: 'text-xs mobail-muted underline', href: 'tel:' + (F.getUser(db, listings[i].owner_id) || {}).phone } }, [F.t(db, 'call_now')])
+          D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [
+            D.Div({ attrs: { class: 'ui-text-body font-semibold' } }, [listings[i].headline || '']),
+            UI.Badge({}, [F.t(db, listings[i].listing_type_key || '')])
+          ]),
+          D.Div({ attrs: { class: 'ui-text-small ui-text-muted mt-2' } }, [listings[i].excerpt || '']),
+          D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [
+            UI.PriceTag({}, [F.formatPrice(listings[i])]),
+            UI.ButtonGhost({ as: 'a', attrs: { href: 'tel:' + (listings[i].owner.phone || ''), class: 'ui-text-small' } }, [F.t(db, 'call_now')])
           ])
         ])
       );
     }
-    return D.Div({ attrs: { class: 'flex flex-col gap-4' } }, output);
+    return UI.List({}, output);
   }
 
   function renderPosts(db) {
-    var posts = db.data.posts;
+    var posts = db.data.posts || [];
     var output = [];
     var i;
     for (i = 0; i < posts.length; i += 1) {
-      var postLang = F.getPostLang(db, posts[i].id) || {};
-      var media = F.getMedia(db, posts[i].media_id) || {};
-      var userLang = F.getUserLang(db, posts[i].owner_id) || {};
+      var postMedia = posts[i].media || {};
       output.push(
-        UI.Card({}, [
+        UI.Card({ variant: 'raised' }, [
           D.Div({ attrs: { class: 'flex items-center gap-3' } }, [
-            D.Div({ attrs: { class: 'h-10 w-10 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-xs font-semibold' } }, [userLang.full_name ? userLang.full_name.slice(0, 2) : '']),
+            UI.Avatar({ size: 'sm' }, [
+              D.Div({ attrs: { class: 'ui-text-small font-semibold' } }, [posts[i].owner.display_name ? posts[i].owner.display_name.slice(0, 2) : ''])
+            ]),
             D.Div({}, [
-              D.Div({ attrs: { class: 'text-sm font-semibold' } }, [userLang.full_name || '']),
-              D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [postLang.caption || ''])
+              D.Div({ attrs: { class: 'ui-text-body font-semibold' } }, [posts[i].owner.display_name || '']),
+              D.Div({ attrs: { class: 'ui-text-small ui-text-muted' } }, [posts[i].caption || ''])
             ])
           ]),
-          D.Img({ attrs: { class: 'mt-3 w-full h-48 rounded-[var(--radius-md)] object-cover', src: media.media_url || '', alt: postLang.caption || '' } }, [])
-        ])
-      );
-    }
-    return D.Div({ attrs: { class: 'flex flex-col gap-4' } }, output);
-  }
-
-  function renderReels(db) {
-    var reels = db.data.reels;
-    var output = [];
-    var i;
-    for (i = 0; i < reels.length; i += 1) {
-      var reelLang = F.getReelLang(db, reels[i].id) || {};
-      var media = F.getMedia(db, reels[i].media_id) || {};
-      output.push(
-        UI.ReelTile({}, [
-          D.Img({ attrs: { src: media.media_thumbnail_url || media.media_url || '', class: 'absolute inset-0 h-full w-full object-cover' } }, []),
-          UI.ReelOverlay({}, [
-            D.Div({ attrs: { class: 'text-xs font-semibold' } }, [reelLang.caption || ''])
+          UI.MediaThumb({ attrs: { class: 'mt-3' } }, [
+            D.Img({ attrs: { class: 'w-full h-48 object-cover', src: postMedia.media_url || '', alt: posts[i].caption || '' } }, [])
           ])
         ])
       );
     }
-    return D.Div({ attrs: { class: 'grid grid-cols-2 gap-3' } }, output);
+    return UI.List({}, output);
+  }
+
+  function renderReels(db) {
+    var reels = db.data.reels || [];
+    var output = [];
+    var i;
+    for (i = 0; i < reels.length; i += 1) {
+      var reelMedia = reels[i].media || {};
+      output.push(
+        UI.ReelTile({}, [
+          D.Img({ attrs: { src: reelMedia.media_thumbnail_url || reelMedia.media_url || '', class: 'absolute inset-0 h-full w-full object-cover', alt: reels[i].caption || '' } }, []),
+          D.Div({ attrs: { class: 'absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/20 to-transparent p-3' } }, [
+            D.Div({ attrs: { class: 'ui-text-small text-white' } }, [reels[i].caption || ''])
+          ])
+        ])
+      );
+    }
+    return UI.Grid({ columns: '2' }, output);
   }
 
   function renderHomeScreen(db) {
-    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll' } }, [
-      D.Div({ attrs: { class: 'px-6 flex items-center justify-between' } }, [
-        UI.SectionTitle({}, [F.t(db, 'stories')]),
-        D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'nearby')])
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.SearchBar({ inputAttrs: { placeholder: F.t(db, 'search_placeholder'), class: 'w-full bg-transparent outline-none ui-text-body' } }),
+      UI.Section({}, [
+        D.Div({ attrs: { class: 'flex items-center justify-between' } }, [
+          UI.SectionTitle({}, [F.t(db, 'stories')]),
+          D.Div({ attrs: { class: 'ui-text-small ui-text-muted' } }, [F.t(db, 'nearby')])
+        ]),
+        renderStories(db)
       ]),
-      D.Div({ attrs: { class: 'mt-4' } }, [renderStories(db)]),
-      D.Div({ attrs: { class: 'px-6 mt-6 flex items-center justify-between' } }, [
-        UI.SectionTitle({}, [F.t(db, 'featured_listings')]),
-        D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'view_all')])
-      ]),
-      D.Div({ attrs: { class: 'px-6 mt-4 flex flex-col gap-4 pb-6' } }, [renderListings(db)])
+      UI.Section({}, [
+        D.Div({ attrs: { class: 'flex items-center justify-between' } }, [
+          UI.SectionTitle({}, [F.t(db, 'featured_listings')]),
+          D.Div({ attrs: { class: 'ui-text-small ui-text-muted' } }, [F.t(db, 'view_all')])
+        ]),
+        renderFilters(db),
+        renderListings(db)
+      ])
     ]);
   }
 
   function renderReelsScreen(db) {
-    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll' } }, [
-      D.Div({ attrs: { class: 'px-6 mb-4' } }, [
-        UI.SectionTitle({}, [F.t(db, 'reels')])
-      ]),
-      D.Div({ attrs: { class: 'px-6 pb-6' } }, [renderReels(db)])
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.Section({}, [
+        UI.SectionTitle({}, [F.t(db, 'reels')]),
+        renderReels(db)
+      ])
     ]);
   }
 
   function renderInboxScreen(db) {
-    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll px-6 py-4' } }, [
-      UI.SectionTitle({ attrs: { class: 'mb-4' } }, [F.t(db, 'nav_inbox')]),
-      D.Div({ attrs: { class: 'text-center py-16 mobail-muted' } }, [
-        D.Div({ attrs: { class: 'text-4xl mb-3' } }, ['✉️']),
-        D.Div({ attrs: { class: 'text-sm' } }, ['No messages yet'])
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.SearchBar({ inputAttrs: { placeholder: F.t(db, 'search_placeholder'), class: 'w-full bg-transparent outline-none ui-text-body' } }),
+      UI.EmptyState({}, [
+        D.Div({ attrs: { class: 'ui-text-title' } }, [F.t(db, 'inbox_empty_title')]),
+        D.Div({ attrs: { class: 'ui-text-body ui-text-muted mt-2' } }, [F.t(db, 'inbox_empty_body')])
       ])
     ]);
   }
 
   function renderProfileScreen(db) {
-    var userLang = F.getUserLang(db, db.data.users[0].id) || {};
-    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll px-6 py-4' } }, [
-      D.Div({ attrs: { class: 'flex flex-col items-center mb-6' } }, [
-        D.Div({ attrs: { class: 'h-24 w-24 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-2xl font-semibold mb-3' } }, [
-          userLang.full_name ? userLang.full_name.slice(0, 2) : ''
-        ]),
-        D.Div({ attrs: { class: 'text-lg font-semibold' } }, [userLang.full_name || '']),
-        D.Div({ attrs: { class: 'text-sm mobail-muted' } }, [userLang.bio || ''])
+    var user = db.data.users && db.data.users.length ? db.data.users[0] : {};
+    var stats = db.data.profile_stats || [];
+    var statsNodes = [];
+    var i;
+    for (i = 0; i < stats.length; i += 1) {
+      statsNodes.push(
+        UI.Card({}, [
+          D.Div({ attrs: { class: 'ui-text-title' } }, [stats[i].value || '']),
+          D.Div({ attrs: { class: 'ui-text-small ui-text-muted' } }, [F.t(db, stats[i].label_key)])
+        ])
+      );
+    }
+
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.Card({ variant: 'raised' }, [
+        D.Div({ attrs: { class: 'flex items-center gap-4' } }, [
+          UI.Avatar({ size: 'lg' }, [
+            D.Img({ attrs: { src: user.avatar_url || '', class: 'h-full w-full object-cover', alt: user.display_name || '' } }, [])
+          ]),
+          D.Div({}, [
+            D.Div({ attrs: { class: 'ui-text-title' } }, [user.display_name || '']),
+            D.Div({ attrs: { class: 'ui-text-body ui-text-muted mt-1' } }, [user.bio || ''])
+          ])
+        ])
       ]),
-      D.Div({ attrs: { class: 'mt-6' } }, [
-        UI.SectionTitle({ attrs: { class: 'mb-4' } }, [F.t(db, 'latest_posts')]),
+      UI.Grid({ columns: '3' }, statsNodes),
+      UI.Section({}, [
+        UI.SectionTitle({}, [F.t(db, 'latest_posts')]),
         renderPosts(db)
       ])
     ]);
+  }
+
+  function renderBottomNav(db) {
+    var items = db.data.nav_items || [];
+    var current = db.data.currentScreen || 'home';
+    var nodes = [];
+    var i;
+    for (i = 0; i < items.length; i += 1) {
+      var isActive = current === items[i].id;
+      nodes.push(
+        UI.ButtonGhost({
+          attrs: {
+            gkey: 'nav:' + items[i].id,
+            class: 'flex flex-col items-center gap-1 min-w-[60px] ' + (isActive ? 'text-[var(--mishkah-primary)]' : 'ui-text-muted')
+          }
+        }, [
+          D.Div({ attrs: { class: 'text-lg' } }, [items[i].icon || '']),
+          D.Div({ attrs: { class: 'ui-text-small' } }, [F.t(db, items[i].label_key)])
+        ])
+      );
+    }
+    return UI.BottomNav({}, nodes);
   }
 
   function body(db) {
@@ -165,38 +223,21 @@
       screenContent = renderHomeScreen(db);
     }
 
-    return UI.AppRoot({ attrs: { 'data-theme': db.env.theme, dir: db.env.dir } }, [
+    return UI.AppRoot({ attrs: { 'data-theme': db.env.theme, dir: db.env.dir }, density: 'regular' }, [
       UI.Tokens(),
       UI.AppShell({}, [
         UI.TopBar({}, [
           D.Div({}, [
-            D.Div({ attrs: { class: 'text-xs uppercase tracking-[0.3em] mobail-muted' } }, [F.t(db, 'app_tagline')]),
-            D.Div({ attrs: { class: 'text-xl font-semibold' } }, [F.t(db, 'app_title')])
+            D.Div({ attrs: { class: 'ui-text-small ui-text-muted' } }, [F.t(db, 'app_tagline')]),
+            D.Div({ attrs: { class: 'ui-text-title' } }, [F.t(db, 'app_title')])
           ]),
-          D.Div({ attrs: { class: 'flex items-center gap-3' } }, [
+          D.Div({ attrs: { class: 'flex items-center gap-2' } }, [
             UI.IconButton({ attrs: { gkey: 'sys:lang', title: F.t(db, 'toggle_lang') } }, [F.t(db, 'lang_short')]),
-            UI.IconButton({ attrs: { gkey: 'sys:theme', title: F.t(db, 'toggle_theme') } }, [D.Span({ attrs: { class: 'text-lg' } }, ['◐'])])
+            UI.IconButton({ attrs: { gkey: 'sys:theme', title: F.t(db, 'toggle_theme') } }, [F.t(db, 'toggle_theme')])
           ])
         ]),
         screenContent,
-        UI.BottomNav({}, [
-          UI.NavItem({ attrs: { gkey: 'nav:home' }, active: currentScreen === 'home' }, [
-            D.Span({ attrs: { class: 'text-2xl' } }, ['🏠']),
-            D.Span({}, [F.t(db, 'nav_home')])
-          ]),
-          UI.NavItem({ attrs: { gkey: 'nav:reels' }, active: currentScreen === 'reels' }, [
-            D.Span({ attrs: { class: 'text-xl' } }, ['🎬']),
-            D.Span({}, [F.t(db, 'nav_reels')])
-          ]),
-          UI.NavItem({ attrs: { gkey: 'nav:inbox' }, active: currentScreen === 'inbox' }, [
-            D.Span({ attrs: { class: 'text-xl' } }, ['💬']),
-            D.Span({}, [F.t(db, 'nav_inbox')])
-          ]),
-          UI.NavItem({ attrs: { gkey: 'nav:profile' }, active: currentScreen === 'profile' }, [
-            D.Span({ attrs: { class: 'text-xl' } }, ['👤']),
-            D.Span({}, [F.t(db, 'nav_profile')])
-          ])
-        ])
+        renderBottomNav(db)
       ])
     ]);
   }
