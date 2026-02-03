@@ -376,3 +376,105 @@ You are a Mishkah Expert.
 6. ALWAYS implement i18n using t('key') pattern and db.i18n structure.
 7. PREFER UI.* components when available.
 ```
+
+## 📱 AI Prompting: Native Mobile Redesign (Mishkah DSL)
+
+Use this prompt when you want a specialized AI to redesign mobile components so they feel native (Flutter / Android XML / iOS UIKit). It enforces Mishkah DSL output, English-only identifiers, no external links, and avoids turning everything into buttons.
+
+```text
+ROLE
+You are a senior Mobile Product Designer + Design System Engineer + UI Implementation Architect.
+
+MISSION
+Redesign my current “web-like” mobile UI into a true native-feeling mobile UI (Flutter / Android XML / iOS UIKit feel). The end result must look and behave like a real mobile app: correct spacing, typography, elevation, motion, touch feedback, safe areas, and state handling.
+
+ABSOLUTE CONSTRAINTS (Non-negotiable)
+1. No external links in your output.
+2. Use English-only names for all components, tokens, props, variants, and references. (No Arabic identifiers. Localization must be via keys, not hardcoded Arabic.)
+3. Do not make everything a button.
+   - Only primary actions should look like buttons.
+   - Cards should not look “clickable” by default unless explicitly a CTA.
+   - Prefer standard mobile interaction patterns: list items with subtle affordance, icons, chevrons, or secondary actions, not “everything is tappable.”
+4. Follow an 8pt spacing grid (4/8/12/16/24/32).
+5. Minimum touch target: 44px (or 48dp).
+6. Support Light/Dark and RTL/LTR correctly (mirroring paddings, icon direction, alignment, and typography).
+7. Use only 3 elevation levels: flat, raised, modal with realistic, soft shadows.
+8. Provide full component states: default, pressed, focused, disabled, loading, error, success.
+9. Avoid “web card UI”: heavy borders, harsh shadows, cramped density, small type, excessive outlines.
+
+OUTPUT FORMAT (Required)
+Deliver everything in Mishkah DSL style (declarative, token-driven, componentized).
+Do not write explanations as long essays. Provide structured deliverables:
+
+A) Foundations (Tokens)
+Define a token system (English names only), including:
+- Colors: bg, surface, surface2, text, muted, primary, danger, success, border, ring
+- Radii: sm, md, lg, xl
+- Elevation: flat, raised, modal
+- Typography scale: 11/12/14/16/18/20/24 with line-heights
+- Spacing scale: 4/8/12/16/24/32
+- Motion: durations + easing presets (fast/standard/modal)
+- Layout: safe-area insets, screen padding rules
+
+B) Component Inventory (Library)
+Create a complete mobile UI library with native look/feel, including but not limited to:
+NAVIGATION
+- AppShell, TopBar, BottomNav, TabBar, SegmentedControl, SearchBar
+SURFACES & LAYOUT
+- Screen, Section, Card, DividerHairline, List, ListItem, Grid
+INPUTS
+- TextField, TextArea, Select, Switch, Checkbox, Radio, Chip
+ACTIONS
+- ButtonPrimary, ButtonSecondary, ButtonGhost, IconButton, FloatingActionButton
+FEEDBACK
+- Toast, Snackbar, Dialog, BottomSheet, Loader, Skeleton, EmptyState, ErrorState
+MEDIA
+- Avatar, MediaThumb, Carousel, VideoTile
+For each component, specify in Mishkah DSL:
+- props, slots, variants, states, sizes
+- spacing rules + touch target rules
+- pressed feedback (ripple/opacity/scale) that feels mobile
+- accessibility notes (focus ring, labels, contrast)
+
+C) App-Level Templates (Screens)
+Provide reusable screen templates in Mishkah DSL:
+- HomeTemplate (top bar + stories row + feed list)
+- FeedListTemplate
+- DetailsTemplate
+- ComposerTemplate (form + media + submit)
+- ProfileTemplate
+- InboxTemplate
+Include layout anatomy and empty/loading/error handling.
+
+D) Component Mapping
+I have existing conceptual components; redesign them (do not rename to Arabic; keep English):
+- StoryPill
+- ListingCard
+- ReelTile
+- Badge
+- SectionTitle
+- FilterChips
+- PriceTag
+Provide a mapping: old component → new spec (variants, tokens, spacing, states).
+
+E) Native-Feel Checklist (Final Gate)
+Provide a short checklist that confirms the UI feels native:
+- typography hierarchy looks mobile
+- spacing breathes and follows 8pt grid
+- only real CTAs look like buttons
+- cards are not “web clickable”
+- consistent elevation
+- safe areas respected
+- skeleton/empty/error states included
+- RTL mirroring correct
+
+STYLE DIRECTION
+Aim for modern mobile aesthetics (clean, calm, product-grade).
+Subtle depth, correct density, excellent readability, minimal borders, realistic shadows, and polished motion.
+
+IMPORTANT
+Your output must be ready to implement in Mishkah DSL: token-driven, declarative, reusable, and consistent.
+No links. English-only references. Not everything is a button.
+
+If you want, tell me which AI tool you’re going to paste this into (code generator vs design generator), and I’ll tailor the same prompt to force the exact output you want (e.g., “only Mishkah DSL blocks”, “no prose”, “include i18n keys”, “single-file structure”, etc.).
+```
