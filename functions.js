@@ -27,68 +27,28 @@
     return findById(db.data.users, userId);
   }
 
-  function getUserLang(db, userId) {
+  function applyTranslationsDeep(node, lang) {
     var i;
-    for (i = 0; i < db.data.users_lang.length; i += 1) {
-      if (db.data.users_lang[i].users_id === userId && db.data.users_lang[i].lang === db.env.lang) {
-        return db.data.users_lang[i];
+    if (!node) return;
+    if (Array.isArray(node)) {
+      for (i = 0; i < node.length; i += 1) {
+        applyTranslationsDeep(node[i], lang);
       }
+      return;
     }
-    for (i = 0; i < db.data.users_lang.length; i += 1) {
-      if (db.data.users_lang[i].users_id === userId) {
-        return db.data.users_lang[i];
+    if (typeof node === 'object') {
+      if (node.translations && node.translations[lang]) {
+        var t = node.translations[lang];
+        Object.keys(t).forEach(function (key) {
+          node[key] = t[key];
+        });
       }
+      Object.keys(node).forEach(function (key) {
+        if (key !== 'translations') {
+          applyTranslationsDeep(node[key], lang);
+        }
+      });
     }
-    return null;
-  }
-
-  function getListingLang(db, listingId) {
-    var i;
-    for (i = 0; i < db.data.listings_lang.length; i += 1) {
-      if (db.data.listings_lang[i].listings_id === listingId && db.data.listings_lang[i].lang === db.env.lang) {
-        return db.data.listings_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.listings_lang.length; i += 1) {
-      if (db.data.listings_lang[i].listings_id === listingId) {
-        return db.data.listings_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getMedia(db, mediaId) {
-    return findById(db.data.media_assets, mediaId);
-  }
-
-  function getPostLang(db, postId) {
-    var i;
-    for (i = 0; i < db.data.posts_lang.length; i += 1) {
-      if (db.data.posts_lang[i].posts_id === postId && db.data.posts_lang[i].lang === db.env.lang) {
-        return db.data.posts_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.posts_lang.length; i += 1) {
-      if (db.data.posts_lang[i].posts_id === postId) {
-        return db.data.posts_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getReelLang(db, reelId) {
-    var i;
-    for (i = 0; i < db.data.reels_lang.length; i += 1) {
-      if (db.data.reels_lang[i].reels_id === reelId && db.data.reels_lang[i].lang === db.env.lang) {
-        return db.data.reels_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.reels_lang.length; i += 1) {
-      if (db.data.reels_lang[i].reels_id === reelId) {
-        return db.data.reels_lang[i];
-      }
-    }
-    return null;
   }
 
   function formatPrice(listing) {
@@ -114,6 +74,8 @@
       next.env = Object.assign({}, state.env);
       next.env.lang = next.env.lang === 'ar' ? 'en' : 'ar';
       next.env.dir = next.env.lang === 'ar' ? 'rtl' : 'ltr';
+      next.data = JSON.parse(JSON.stringify(state.data));
+      applyTranslationsDeep(next.data, next.env.lang);
       return next;
     });
   }
@@ -130,11 +92,6 @@
   return {
     t: t,
     getUser: getUser,
-    getUserLang: getUserLang,
-    getListingLang: getListingLang,
-    getPostLang: getPostLang,
-    getReelLang: getReelLang,
-    getMedia: getMedia,
     formatPrice: formatPrice,
     toggleTheme: toggleTheme,
     toggleLang: toggleLang,
