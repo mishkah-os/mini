@@ -1,0 +1,234 @@
+{
+  "data": {
+    "users": [
+      {
+        "id": "11111111-1111-1111-1111-111111111111",
+        "phone": "+201000000001",
+        "status": "active",
+        "created_at": "2026-02-01T10:00:00Z",
+        "updated_at": "2026-02-01T10:30:00Z"
+      },
+      {
+        "id": "22222222-2222-2222-2222-222222222222",
+        "phone": "+201000000002",
+        "status": "active",
+        "created_at": "2026-02-01T11:00:00Z",
+        "updated_at": "2026-02-01T11:20:00Z"
+      }
+    ],
+    "users_lang": [
+      {
+        "id": "a1111111-1111-1111-1111-111111111111",
+        "users_id": "11111111-1111-1111-1111-111111111111",
+        "lang": "ar",
+        "full_name": "كريم الجندي",
+        "bio": "وسيط عقاري متخصص في شقق التجمع"
+      },
+      {
+        "id": "a1111111-1111-1111-1111-111111111112",
+        "users_id": "11111111-1111-1111-1111-111111111111",
+        "lang": "en",
+        "full_name": "Karim Elgendy",
+        "bio": "Broker focused on New Cairo apartments"
+      },
+      {
+        "id": "a2222222-2222-2222-2222-222222222221",
+        "users_id": "22222222-2222-2222-2222-222222222222",
+        "lang": "ar",
+        "full_name": "سارة شريف",
+        "bio": "باحثة عن سكن بواجهة اجتماعية"
+      },
+      {
+        "id": "a2222222-2222-2222-2222-222222222222",
+        "users_id": "22222222-2222-2222-2222-222222222222",
+        "lang": "en",
+        "full_name": "Sara Sherif",
+        "bio": "Home seeker who loves social discovery"
+      }
+    ],
+    "user_locations": [
+      {
+        "id": "b1111111-1111-1111-1111-111111111111",
+        "user_id": "11111111-1111-1111-1111-111111111111",
+        "lat": 30.0123,
+        "lng": 31.4289,
+        "place_id": "ChIJX1",
+        "formatted_address": "New Cairo, Egypt",
+        "created_at": "2026-02-01T12:00:00Z"
+      },
+      {
+        "id": "b2222222-2222-2222-2222-222222222222",
+        "user_id": "22222222-2222-2222-2222-222222222222",
+        "lat": 30.0501,
+        "lng": 31.3456,
+        "place_id": "ChIJX2",
+        "formatted_address": "Nasr City, Egypt",
+        "created_at": "2026-02-01T12:05:00Z"
+      }
+    ],
+    "media_assets": [
+      {
+        "id": "c1111111-1111-1111-1111-111111111111",
+        "owner_id": "11111111-1111-1111-1111-111111111111",
+        "media_type": "image",
+        "media_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=900&auto=format&fit=crop",
+        "media_thumbnail_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=400&auto=format&fit=crop",
+        "duration_sec": null,
+        "metadata": { "room": 3, "bath": 2 },
+        "created_at": "2026-02-01T12:10:00Z"
+      },
+      {
+        "id": "c2222222-2222-2222-2222-222222222222",
+        "owner_id": "11111111-1111-1111-1111-111111111111",
+        "media_type": "video",
+        "media_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=900&auto=format&fit=crop",
+        "media_thumbnail_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=400&auto=format&fit=crop",
+        "duration_sec": 18.5,
+        "metadata": { "type": "reel" },
+        "created_at": "2026-02-01T12:12:00Z"
+      },
+      {
+        "id": "c3333333-3333-3333-3333-333333333333",
+        "owner_id": "22222222-2222-2222-2222-222222222222",
+        "media_type": "image",
+        "media_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=900&auto=format&fit=crop",
+        "media_thumbnail_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=400&auto=format&fit=crop",
+        "duration_sec": null,
+        "metadata": { "note": "post" },
+        "created_at": "2026-02-01T12:14:00Z"
+      }
+    ],
+    "listings": [
+      {
+        "id": "d1111111-1111-1111-1111-111111111111",
+        "owner_id": "11111111-1111-1111-1111-111111111111",
+        "primary_media_id": "c1111111-1111-1111-1111-111111111111",
+        "location_id": "b1111111-1111-1111-1111-111111111111",
+        "listing_type": "rent",
+        "price_amount": 18500,
+        "currency": "EGP",
+        "status": "active",
+        "created_at": "2026-02-01T12:20:00Z",
+        "updated_at": "2026-02-01T12:30:00Z"
+      }
+    ],
+    "listings_lang": [
+      {
+        "id": "e1111111-1111-1111-1111-111111111111",
+        "listings_id": "d1111111-1111-1111-1111-111111111111",
+        "lang": "ar",
+        "headline": "شقة مفروشة في التجمع",
+        "excerpt": "دوبلكس فاخر قريب من الخدمات",
+        "description": "شقة 3 غرف، مفروشة بالكامل، جاهزة للسكن"
+      },
+      {
+        "id": "e1111111-1111-1111-1111-111111111112",
+        "listings_id": "d1111111-1111-1111-1111-111111111111",
+        "lang": "en",
+        "headline": "Furnished apartment in Fifth Settlement",
+        "excerpt": "Premium duplex close to amenities",
+        "description": "3-bedroom, fully furnished, move-in ready"
+      }
+    ],
+    "posts": [
+      {
+        "id": "f1111111-1111-1111-1111-111111111111",
+        "owner_id": "22222222-2222-2222-2222-222222222222",
+        "media_id": "c3333333-3333-3333-3333-333333333333",
+        "status": "active",
+        "created_at": "2026-02-01T12:40:00Z"
+      }
+    ],
+    "posts_lang": [
+      {
+        "id": "g1111111-1111-1111-1111-111111111111",
+        "posts_id": "f1111111-1111-1111-1111-111111111111",
+        "lang": "ar",
+        "caption": "جولة سريعة في الشقة قبل تسليم المفاتيح"
+      },
+      {
+        "id": "g1111111-1111-1111-1111-111111111112",
+        "posts_id": "f1111111-1111-1111-1111-111111111111",
+        "lang": "en",
+        "caption": "Quick walkthrough before handover"
+      }
+    ],
+    "reels": [
+      {
+        "id": "h1111111-1111-1111-1111-111111111111",
+        "owner_id": "11111111-1111-1111-1111-111111111111",
+        "media_id": "c2222222-2222-2222-2222-222222222222",
+        "status": "active",
+        "created_at": "2026-02-01T12:45:00Z"
+      }
+    ],
+    "reels_lang": [
+      {
+        "id": "i1111111-1111-1111-1111-111111111111",
+        "reels_id": "h1111111-1111-1111-1111-111111111111",
+        "lang": "ar",
+        "caption": "لقطة ريلز فاخرة لشقة التجمع"
+      },
+      {
+        "id": "i1111111-1111-1111-1111-111111111112",
+        "reels_id": "h1111111-1111-1111-1111-111111111111",
+        "lang": "en",
+        "caption": "Luxury reel snap from New Cairo"
+      }
+    ],
+    "comments": [
+      {
+        "id": "j1111111-1111-1111-1111-111111111111",
+        "user_id": "22222222-2222-2222-2222-222222222222",
+        "target_type": "listing",
+        "target_id": "d1111111-1111-1111-1111-111111111111",
+        "body": "المنظر رائع، هل متاحة الآن؟",
+        "created_at": "2026-02-01T12:50:00Z"
+      }
+    ],
+    "likes": [
+      {
+        "id": "k1111111-1111-1111-1111-111111111111",
+        "user_id": "22222222-2222-2222-2222-222222222222",
+        "target_type": "listing",
+        "target_id": "d1111111-1111-1111-1111-111111111111",
+        "created_at": "2026-02-01T12:55:00Z"
+      }
+    ],
+    "follows": [
+      {
+        "id": "l1111111-1111-1111-1111-111111111111",
+        "follower_id": "22222222-2222-2222-2222-222222222222",
+        "following_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2026-02-01T13:00:00Z"
+      }
+    ]
+  },
+  "env": {
+    "theme": "dark",
+    "lang": "ar",
+    "dir": "rtl"
+  },
+  "i18n": {
+    "dict": {
+      "app_title": { "ar": "بروكر", "en": "Brocker" },
+      "app_tagline": { "ar": "شبكة عقارات اجتماعية", "en": "Social Real Estate" },
+      "toggle_theme": { "ar": "الوضع", "en": "Theme" },
+      "toggle_lang": { "ar": "اللغة", "en": "Language" },
+      "lang_short": { "ar": "EN", "en": "AR" },
+      "stories": { "ar": "القصص", "en": "Stories" },
+      "nearby": { "ar": "قريب منك", "en": "Nearby" },
+      "featured_listings": { "ar": "العقارات المميزة", "en": "Featured Listings" },
+      "latest_posts": { "ar": "أحدث المنشورات", "en": "Latest Posts" },
+      "view_all": { "ar": "عرض الكل", "en": "View All" },
+      "add_post": { "ar": "إنشاء", "en": "Compose" },
+      "reels": { "ar": "ريلز", "en": "Reels" },
+      "discover": { "ar": "استكشف", "en": "Discover" },
+      "call_now": { "ar": "اتصل الآن", "en": "Call now" },
+      "nav_home": { "ar": "الرئيسية", "en": "Home" },
+      "nav_reels": { "ar": "ريلز", "en": "Reels" },
+      "nav_inbox": { "ar": "الرسائل", "en": "Inbox" },
+      "nav_profile": { "ar": "الملف", "en": "Profile" }
+    }
+  }
+}
