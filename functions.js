@@ -27,70 +27,6 @@
     return findById(db.data.users, userId);
   }
 
-  function getUserLang(db, userId) {
-    var i;
-    for (i = 0; i < db.data.users_lang.length; i += 1) {
-      if (db.data.users_lang[i].users_id === userId && db.data.users_lang[i].lang === db.env.lang) {
-        return db.data.users_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.users_lang.length; i += 1) {
-      if (db.data.users_lang[i].users_id === userId) {
-        return db.data.users_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getListingLang(db, listingId) {
-    var i;
-    for (i = 0; i < db.data.listings_lang.length; i += 1) {
-      if (db.data.listings_lang[i].listings_id === listingId && db.data.listings_lang[i].lang === db.env.lang) {
-        return db.data.listings_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.listings_lang.length; i += 1) {
-      if (db.data.listings_lang[i].listings_id === listingId) {
-        return db.data.listings_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getMedia(db, mediaId) {
-    return findById(db.data.media_assets, mediaId);
-  }
-
-  function getPostLang(db, postId) {
-    var i;
-    for (i = 0; i < db.data.posts_lang.length; i += 1) {
-      if (db.data.posts_lang[i].posts_id === postId && db.data.posts_lang[i].lang === db.env.lang) {
-        return db.data.posts_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.posts_lang.length; i += 1) {
-      if (db.data.posts_lang[i].posts_id === postId) {
-        return db.data.posts_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getReelLang(db, reelId) {
-    var i;
-    for (i = 0; i < db.data.reels_lang.length; i += 1) {
-      if (db.data.reels_lang[i].reels_id === reelId && db.data.reels_lang[i].lang === db.env.lang) {
-        return db.data.reels_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.reels_lang.length; i += 1) {
-      if (db.data.reels_lang[i].reels_id === reelId) {
-        return db.data.reels_lang[i];
-      }
-    }
-    return null;
-  }
-
   function formatPrice(listing) {
     if (!listing) return '';
     if (listing.price_amount == null) return '';
@@ -130,11 +66,6 @@
   return {
     t: t,
     getUser: getUser,
-    getUserLang: getUserLang,
-    getListingLang: getListingLang,
-    getPostLang: getPostLang,
-    getReelLang: getReelLang,
-    getMedia: getMedia,
     formatPrice: formatPrice,
     toggleTheme: toggleTheme,
     toggleLang: toggleLang,
