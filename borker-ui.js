@@ -55,7 +55,7 @@
           ]),
           D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [
             D.Div({ attrs: { class: 'ui-text-body font-semibold' } }, [listings[i].headline || '']),
-            UI.Badge({}, [listings[i].listing_type_label || ''])
+            UI.Badge({}, [F.t(db, listings[i].listing_type_key || '')])
           ]),
           D.Div({ attrs: { class: 'ui-text-small ui-text-muted mt-2' } }, [listings[i].excerpt || '']),
           D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [

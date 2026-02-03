@@ -27,19 +27,7 @@ window.db = {
         "full_name": "كريم الجندي",
         "display_name": "كريم الجندي",
         "bio": "وسيط عقاري متخصص في شقق التجمع",
-        "avatar_url": "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop",
-        "translations": {
-          "ar": {
-            "full_name": "كريم الجندي",
-            "display_name": "كريم الجندي",
-            "bio": "وسيط عقاري متخصص في شقق التجمع"
-          },
-          "en": {
-            "full_name": "Karim Elgendy",
-            "display_name": "Karim Elgendy",
-            "bio": "Broker focused on New Cairo apartments"
-          }
-        }
+        "avatar_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
       },
       {
         "id": "22222222-2222-2222-2222-222222222222",
@@ -50,19 +38,7 @@ window.db = {
         "full_name": "سارة شريف",
         "display_name": "سارة شريف",
         "bio": "باحثة عن سكن بواجهة اجتماعية",
-        "avatar_url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-        "translations": {
-          "ar": {
-            "full_name": "سارة شريف",
-            "display_name": "سارة شريف",
-            "bio": "باحثة عن سكن بواجهة اجتماعية"
-          },
-          "en": {
-            "full_name": "Sara Sherif",
-            "display_name": "Sara Sherif",
-            "bio": "Home seeker who loves social discovery"
-          }
-        }
+        "avatar_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
       }
     ],
     "listings": [
@@ -71,23 +47,19 @@ window.db = {
         "owner": {
           "id": "11111111-1111-1111-1111-111111111111",
           "display_name": "كريم الجندي",
-          "phone": "+201000000001",
-          "translations": {
-            "ar": { "display_name": "كريم الجندي" },
-            "en": { "display_name": "Karim Elgendy" }
-          }
+          "phone": "+201000000001"
         },
         "primary_media": {
           "id": "c1111111-1111-1111-1111-111111111111",
-          "media_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=900&auto=format&fit=crop",
-          "media_thumbnail_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=400&auto=format&fit=crop"
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
         },
         "location": {
           "id": "b1111111-1111-1111-1111-111111111111",
           "formatted_address": "New Cairo, Egypt"
         },
         "listing_type": "rent",
-        "listing_type_label": "إيجار",
+        "listing_type_key": "filter_rent",
         "price_amount": 18500,
         "currency": "EGP",
         "status": "active",
@@ -95,44 +67,26 @@ window.db = {
         "updated_at": "2026-02-01T12:30:00Z",
         "headline": "شقة مفروشة في التجمع",
         "excerpt": "دوبلكس فاخر قريب من الخدمات",
-        "description": "شقة 3 غرف، مفروشة بالكامل، جاهزة للسكن",
-        "translations": {
-          "ar": {
-            "listing_type_label": "إيجار",
-            "headline": "شقة مفروشة في التجمع",
-            "excerpt": "دوبلكس فاخر قريب من الخدمات",
-            "description": "شقة 3 غرف، مفروشة بالكامل، جاهزة للسكن"
-          },
-          "en": {
-            "listing_type_label": "Rent",
-            "headline": "Furnished apartment in Fifth Settlement",
-            "excerpt": "Premium duplex close to amenities",
-            "description": "3-bedroom, fully furnished, move-in ready"
-          }
-        }
+        "description": "شقة 3 غرف، مفروشة بالكامل، جاهزة للسكن"
       },
       {
         "id": "d2222222-2222-2222-2222-222222222222",
         "owner": {
           "id": "22222222-2222-2222-2222-222222222222",
           "display_name": "سارة شريف",
-          "phone": "+201000000002",
-          "translations": {
-            "ar": { "display_name": "سارة شريف" },
-            "en": { "display_name": "Sara Sherif" }
-          }
+          "phone": "+201000000002"
         },
         "primary_media": {
           "id": "c3333333-3333-3333-3333-333333333333",
-          "media_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=900&auto=format&fit=crop",
-          "media_thumbnail_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=400&auto=format&fit=crop"
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
         },
         "location": {
           "id": "b2222222-2222-2222-2222-222222222222",
           "formatted_address": "Nasr City, Egypt"
         },
         "listing_type": "sale",
-        "listing_type_label": "بيع",
+        "listing_type_key": "filter_sale",
         "price_amount": 2500000,
         "currency": "EGP",
         "status": "active",
@@ -140,44 +94,26 @@ window.db = {
         "updated_at": "2026-02-01T13:15:00Z",
         "headline": "فيلا للبيع في مدينة نصر",
         "excerpt": "فيلا 4 غرف بحديقة واسعة",
-        "description": "فيلا مستقلة بحديقة، موقع ممتاز",
-        "translations": {
-          "ar": {
-            "listing_type_label": "بيع",
-            "headline": "فيلا للبيع في مدينة نصر",
-            "excerpt": "فيلا 4 غرف بحديقة واسعة",
-            "description": "فيلا مستقلة بحديقة، موقع ممتاز"
-          },
-          "en": {
-            "listing_type_label": "Sale",
-            "headline": "Villa for sale in Nasr City",
-            "excerpt": "4-bedroom villa with spacious garden",
-            "description": "Standalone villa with garden, prime location"
-          }
-        }
+        "description": "فيلا مستقلة بحديقة، موقع ممتاز"
       },
       {
         "id": "d3333333-3333-3333-3333-333333333333",
         "owner": {
           "id": "11111111-1111-1111-1111-111111111111",
           "display_name": "كريم الجندي",
-          "phone": "+201000000001",
-          "translations": {
-            "ar": { "display_name": "كريم الجندي" },
-            "en": { "display_name": "Karim Elgendy" }
-          }
+          "phone": "+201000000001"
         },
         "primary_media": {
           "id": "c2222222-2222-2222-2222-222222222222",
-          "media_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=900&auto=format&fit=crop",
-          "media_thumbnail_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=400&auto=format&fit=crop"
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
         },
         "location": {
           "id": "b1111111-1111-1111-1111-111111111111",
           "formatted_address": "New Cairo, Egypt"
         },
         "listing_type": "rent",
-        "listing_type_label": "إيجار",
+        "listing_type_key": "filter_rent",
         "price_amount": 12000,
         "currency": "EGP",
         "status": "active",
@@ -185,21 +121,7 @@ window.db = {
         "updated_at": "2026-02-01T14:10:00Z",
         "headline": "شقة اقتصادية للإيجار",
         "excerpt": "شقة غرفتين بموقع متميز",
-        "description": "شقة مناسبة للعائلات الصغيرة",
-        "translations": {
-          "ar": {
-            "listing_type_label": "إيجار",
-            "headline": "شقة اقتصادية للإيجار",
-            "excerpt": "شقة غرفتين بموقع متميز",
-            "description": "شقة مناسبة للعائلات الصغيرة"
-          },
-          "en": {
-            "listing_type_label": "Rent",
-            "headline": "Affordable apartment for rent",
-            "excerpt": "2-bedroom in prime location",
-            "description": "Perfect for small families"
-          }
-        }
+        "description": "شقة مناسبة للعائلات الصغيرة"
       }
     ],
     "posts": [
@@ -207,45 +129,29 @@ window.db = {
         "id": "f1111111-1111-1111-1111-111111111111",
         "owner": {
           "id": "22222222-2222-2222-2222-222222222222",
-          "display_name": "سارة شريف",
-          "translations": {
-            "ar": { "display_name": "سارة شريف" },
-            "en": { "display_name": "Sara Sherif" }
-          }
+          "display_name": "سارة شريف"
         },
         "media": {
           "id": "c3333333-3333-3333-3333-333333333333",
-          "media_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=900&auto=format&fit=crop"
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
         },
         "status": "active",
         "created_at": "2026-02-01T12:40:00Z",
-        "caption": "جولة سريعة في الشقة قبل تسليم المفاتيح",
-        "translations": {
-          "ar": { "caption": "جولة سريعة في الشقة قبل تسليم المفاتيح" },
-          "en": { "caption": "Quick walkthrough before handover" }
-        }
+        "caption": "جولة سريعة في الشقة قبل تسليم المفاتيح"
       },
       {
         "id": "f2222222-2222-2222-2222-222222222222",
         "owner": {
           "id": "11111111-1111-1111-1111-111111111111",
-          "display_name": "كريم الجندي",
-          "translations": {
-            "ar": { "display_name": "كريم الجندي" },
-            "en": { "display_name": "Karim Elgendy" }
-          }
+          "display_name": "كريم الجندي"
         },
         "media": {
           "id": "c1111111-1111-1111-1111-111111111111",
-          "media_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=900&auto=format&fit=crop"
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
         },
         "status": "active",
         "created_at": "2026-02-01T13:20:00Z",
-        "caption": "وحدة سكنية فاخرة جاهزة للمعاينة",
-        "translations": {
-          "ar": { "caption": "وحدة سكنية فاخرة جاهزة للمعاينة" },
-          "en": { "caption": "Luxury unit ready for viewing" }
-        }
+        "caption": "وحدة سكنية فاخرة جاهزة للمعاينة"
       }
     ],
     "reels": [
@@ -253,24 +159,16 @@ window.db = {
         "id": "h1111111-1111-1111-1111-111111111111",
         "owner": {
           "id": "11111111-1111-1111-1111-111111111111",
-          "display_name": "كريم الجندي",
-          "translations": {
-            "ar": { "display_name": "كريم الجندي" },
-            "en": { "display_name": "Karim Elgendy" }
-          }
+          "display_name": "كريم الجندي"
         },
         "media": {
           "id": "c2222222-2222-2222-2222-222222222222",
-          "media_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=900&auto=format&fit=crop",
-          "media_thumbnail_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=400&auto=format&fit=crop"
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
         },
         "status": "active",
         "created_at": "2026-02-01T12:45:00Z",
-        "caption": "لقطة ريلز فاخرة لشقة التجمع",
-        "translations": {
-          "ar": { "caption": "لقطة ريلز فاخرة لشقة التجمع" },
-          "en": { "caption": "Luxury reel snap from New Cairo" }
-        }
+        "caption": "لقطة ريلز فاخرة لشقة التجمع"
       }
     ]
   },

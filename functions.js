@@ -27,30 +27,6 @@
     return findById(db.data.users, userId);
   }
 
-  function applyTranslationsDeep(node, lang) {
-    var i;
-    if (!node) return;
-    if (Array.isArray(node)) {
-      for (i = 0; i < node.length; i += 1) {
-        applyTranslationsDeep(node[i], lang);
-      }
-      return;
-    }
-    if (typeof node === 'object') {
-      if (node.translations && node.translations[lang]) {
-        var t = node.translations[lang];
-        Object.keys(t).forEach(function (key) {
-          node[key] = t[key];
-        });
-      }
-      Object.keys(node).forEach(function (key) {
-        if (key !== 'translations') {
-          applyTranslationsDeep(node[key], lang);
-        }
-      });
-    }
-  }
-
   function formatPrice(listing) {
     if (!listing) return '';
     if (listing.price_amount == null) return '';
