@@ -118,6 +118,15 @@
     });
   }
 
+  function navigateTo(ctx, screenName) {
+    ctx.setState(function (state) {
+      var next = Object.assign({}, state);
+      next.data = Object.assign({}, state.data);
+      next.data.currentScreen = screenName;
+      return next;
+    });
+  }
+
   return {
     t: t,
     getUser: getUser,
@@ -128,6 +137,7 @@
     getMedia: getMedia,
     formatPrice: formatPrice,
     toggleTheme: toggleTheme,
-    toggleLang: toggleLang
+    toggleLang: toggleLang,
+    navigateTo: navigateTo
   };
 }));

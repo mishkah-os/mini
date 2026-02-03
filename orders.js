@@ -25,6 +25,34 @@
       handler: function (e, ctx) {
         F.toggleLang(ctx);
       }
+    },
+    'nav.goHome': {
+      on: ['click'],
+      gkeys: ['nav:home'],
+      handler: function (e, ctx) {
+        F.navigateTo(ctx, 'home');
+      }
+    },
+    'nav.goReels': {
+      on: ['click'],
+      gkeys: ['nav:reels'],
+      handler: function (e, ctx) {
+        F.navigateTo(ctx, 'reels');
+      }
+    },
+    'nav.goInbox': {
+      on: ['click'],
+      gkeys: ['nav:inbox'],
+      handler: function (e, ctx) {
+        F.navigateTo(ctx, 'inbox');
+      }
+    },
+    'nav.goProfile': {
+      on: ['click'],
+      gkeys: ['nav:profile'],
+      handler: function (e, ctx) {
+        F.navigateTo(ctx, 'profile');
+      }
     }
   };
 

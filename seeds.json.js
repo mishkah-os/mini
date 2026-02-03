@@ -1,5 +1,6 @@
-{
+window.db = {
   "data": {
+    "currentScreen": "home",
     "users": [
       {
         "id": "11111111-1111-1111-1111-111111111111",
@@ -110,6 +111,30 @@
         "status": "active",
         "created_at": "2026-02-01T12:20:00Z",
         "updated_at": "2026-02-01T12:30:00Z"
+      },
+      {
+        "id": "d2222222-2222-2222-2222-222222222222",
+        "owner_id": "22222222-2222-2222-2222-222222222222",
+        "primary_media_id": "c3333333-3333-3333-3333-333333333333",
+        "location_id": "b2222222-2222-2222-2222-222222222222",
+        "listing_type": "sale",
+        "price_amount": 2500000,
+        "currency": "EGP",
+        "status": "active",
+        "created_at": "2026-02-01T13:00:00Z",
+        "updated_at": "2026-02-01T13:15:00Z"
+      },
+      {
+        "id": "d3333333-3333-3333-3333-333333333333",
+        "owner_id": "11111111-1111-1111-1111-111111111111",
+        "primary_media_id": "c2222222-2222-2222-2222-222222222222",
+        "location_id": "b1111111-1111-1111-1111-111111111111",
+        "listing_type": "rent",
+        "price_amount": 12000,
+        "currency": "EGP",
+        "status": "active",
+        "created_at": "2026-02-01T14:00:00Z",
+        "updated_at": "2026-02-01T14:10:00Z"
       }
     ],
     "listings_lang": [
@@ -128,6 +153,38 @@
         "headline": "Furnished apartment in Fifth Settlement",
         "excerpt": "Premium duplex close to amenities",
         "description": "3-bedroom, fully furnished, move-in ready"
+      },
+      {
+        "id": "e2222222-2222-2222-2222-222222222221",
+        "listings_id": "d2222222-2222-2222-2222-222222222222",
+        "lang": "ar",
+        "headline": "فيلا للبيع في مدينة نصر",
+        "excerpt": "فيلا 4 غرف بحديقة واسعة",
+        "description": "فيلا مستقلة بحديقة، موقع ممتاز"
+      },
+      {
+        "id": "e2222222-2222-2222-2222-222222222222",
+        "listings_id": "d2222222-2222-2222-2222-222222222222",
+        "lang": "en",
+        "headline": "Villa for sale in Nasr City",
+        "excerpt": "4-bedroom villa with spacious garden",
+        "description": "Standalone villa with garden, prime location"
+      },
+      {
+        "id": "e3333333-3333-3333-3333-333333333331",
+        "listings_id": "d3333333-3333-3333-3333-333333333333",
+        "lang": "ar",
+        "headline": "شقة اقتصادية للإيجار",
+        "excerpt": "شقة غرفتين بموقع متميز",
+        "description": "شقة مناسبة للعائلات الصغيرة"
+      },
+      {
+        "id": "e3333333-3333-3333-3333-333333333332",
+        "listings_id": "d3333333-3333-3333-3333-333333333333",
+        "lang": "en",
+        "headline": "Affordable apartment for rent",
+        "excerpt": "2-bedroom in prime location",
+        "description": "Perfect for small families"
       }
     ],
     "posts": [
@@ -137,6 +194,13 @@
         "media_id": "c3333333-3333-3333-3333-333333333333",
         "status": "active",
         "created_at": "2026-02-01T12:40:00Z"
+      },
+      {
+        "id": "f2222222-2222-2222-2222-222222222222",
+        "owner_id": "11111111-1111-1111-1111-111111111111",
+        "media_id": "c1111111-1111-1111-1111-111111111111",
+        "status": "active",
+        "created_at": "2026-02-01T13:20:00Z"
       }
     ],
     "posts_lang": [
@@ -151,6 +215,18 @@
         "posts_id": "f1111111-1111-1111-1111-111111111111",
         "lang": "en",
         "caption": "Quick walkthrough before handover"
+      },
+      {
+        "id": "g2222222-2222-2222-2222-222222222221",
+        "posts_id": "f2222222-2222-2222-2222-222222222222",
+        "lang": "ar",
+        "caption": "وحدة سكنية فاخرة جاهزة للمعاينة"
+      },
+      {
+        "id": "g2222222-2222-2222-2222-222222222222",
+        "posts_id": "f2222222-2222-2222-2222-222222222222",
+        "lang": "en",
+        "caption": "Luxury unit ready for viewing"
       }
     ],
     "reels": [

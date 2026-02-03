@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brocker Mobile UI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-slate-950">
-    <div id="app"></div>
 
-    <script src="/lib/mishkah.core.js"></script>
-    <script src="/mobail-ui.js"></script>
-    <script src="/functions.js"></script>
-    <script src="/orders.js"></script>
-    <script src="/borker-ui.js"></script>
-    <script>
-      fetch('/seeds.json')
-        .then(function (res) { return res.json(); })
-        .then(function (db) {
-          Mishkah.app.setBody(BrockerUI.body);
-          Mishkah.app.create(db, BrockerOrders).mount('#app');
-        });
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brocker Mobile UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-950">
+  <div id="app"></div>
+
+  <script src="lib/mishkah.core.js"></script>
+  <script src="mobail-ui.js"></script>
+  <script src="functions.js"></script>
+  <script src="orders.js"></script>
+  <script src="borker-ui.js"></script>
+  <script src="seeds.json.js"></script>
+
+  <script>
+
+    Mishkah.app.setBody(BrockerUI.body);
+    Mishkah.app.create(window.db, BrockerOrders).mount('#app');
+  </script>
+</body>
+
 </html>

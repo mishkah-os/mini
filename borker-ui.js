@@ -68,7 +68,7 @@
       output.push(
         UI.Card({}, [
           D.Div({ attrs: { class: 'flex items-center gap-3' } }, [
-            D.Div({ attrs: { class: 'h-10 w-10 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-xs font-semibold' } }, [userLang.full_name ? userLang.full_name.slice(0, 2) : ''] ),
+            D.Div({ attrs: { class: 'h-10 w-10 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-xs font-semibold' } }, [userLang.full_name ? userLang.full_name.slice(0, 2) : '']),
             D.Div({}, [
               D.Div({ attrs: { class: 'text-sm font-semibold' } }, [userLang.full_name || '']),
               D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [postLang.caption || ''])
@@ -100,46 +100,101 @@
     return D.Div({ attrs: { class: 'grid grid-cols-2 gap-3' } }, output);
   }
 
+  function renderHomeScreen(db) {
+    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll' } }, [
+      D.Div({ attrs: { class: 'px-6 flex items-center justify-between' } }, [
+        UI.SectionTitle({}, [F.t(db, 'stories')]),
+        D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'nearby')])
+      ]),
+      D.Div({ attrs: { class: 'mt-4' } }, [renderStories(db)]),
+      D.Div({ attrs: { class: 'px-6 mt-6 flex items-center justify-between' } }, [
+        UI.SectionTitle({}, [F.t(db, 'featured_listings')]),
+        D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'view_all')])
+      ]),
+      D.Div({ attrs: { class: 'px-6 mt-4 flex flex-col gap-4 pb-6' } }, [renderListings(db)])
+    ]);
+  }
+
+  function renderReelsScreen(db) {
+    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll' } }, [
+      D.Div({ attrs: { class: 'px-6 mb-4' } }, [
+        UI.SectionTitle({}, [F.t(db, 'reels')])
+      ]),
+      D.Div({ attrs: { class: 'px-6 pb-6' } }, [renderReels(db)])
+    ]);
+  }
+
+  function renderInboxScreen(db) {
+    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll px-6 py-4' } }, [
+      UI.SectionTitle({ attrs: { class: 'mb-4' } }, [F.t(db, 'nav_inbox')]),
+      D.Div({ attrs: { class: 'text-center py-16 mobail-muted' } }, [
+        D.Div({ attrs: { class: 'text-4xl mb-3' } }, ['✉️']),
+        D.Div({ attrs: { class: 'text-sm' } }, ['No messages yet'])
+      ])
+    ]);
+  }
+
+  function renderProfileScreen(db) {
+    var userLang = F.getUserLang(db, db.data.users[0].id) || {};
+    return D.Div({ attrs: { class: 'flex-1 overflow-y-auto mobail-scroll px-6 py-4' } }, [
+      D.Div({ attrs: { class: 'flex flex-col items-center mb-6' } }, [
+        D.Div({ attrs: { class: 'h-24 w-24 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-2xl font-semibold mb-3' } }, [
+          userLang.full_name ? userLang.full_name.slice(0, 2) : ''
+        ]),
+        D.Div({ attrs: { class: 'text-lg font-semibold' } }, [userLang.full_name || '']),
+        D.Div({ attrs: { class: 'text-sm mobail-muted' } }, [userLang.bio || ''])
+      ]),
+      D.Div({ attrs: { class: 'mt-6' } }, [
+        UI.SectionTitle({ attrs: { class: 'mb-4' } }, [F.t(db, 'latest_posts')]),
+        renderPosts(db)
+      ])
+    ]);
+  }
+
   function body(db) {
+    var currentScreen = db.data.currentScreen || 'home';
+    var screenContent;
+
+    if (currentScreen === 'reels') {
+      screenContent = renderReelsScreen(db);
+    } else if (currentScreen === 'inbox') {
+      screenContent = renderInboxScreen(db);
+    } else if (currentScreen === 'profile') {
+      screenContent = renderProfileScreen(db);
+    } else {
+      screenContent = renderHomeScreen(db);
+    }
+
     return UI.AppRoot({ attrs: { 'data-theme': db.env.theme, dir: db.env.dir } }, [
       UI.Tokens(),
-      UI.PhoneFrame({}, [
-        UI.AppShell({}, [
-          UI.TopBar({}, [
-            D.Div({}, [
-              D.Div({ attrs: { class: 'text-xs uppercase tracking-[0.3em] mobail-muted' } }, [F.t(db, 'app_tagline')]),
-              D.Div({ attrs: { class: 'text-xl font-semibold' } }, [F.t(db, 'app_title')])
-            ]),
-            D.Div({ attrs: { class: 'flex items-center gap-3' } }, [
-              UI.IconButton({ attrs: { gkey: 'sys:lang', title: F.t(db, 'toggle_lang') } }, [F.t(db, 'lang_short')]),
-              UI.IconButton({ attrs: { gkey: 'sys:theme', title: F.t(db, 'toggle_theme') } }, [D.Span({ attrs: { class: 'text-lg' } }, ['◐'])])
-            ])
+      UI.AppShell({}, [
+        UI.TopBar({}, [
+          D.Div({}, [
+            D.Div({ attrs: { class: 'text-xs uppercase tracking-[0.3em] mobail-muted' } }, [F.t(db, 'app_tagline')]),
+            D.Div({ attrs: { class: 'text-xl font-semibold' } }, [F.t(db, 'app_title')])
           ]),
-          D.Div({ attrs: { class: 'px-6 flex items-center justify-between' } }, [
-            UI.SectionTitle({}, [F.t(db, 'stories')]),
-            D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'nearby')])
+          D.Div({ attrs: { class: 'flex items-center gap-3' } }, [
+            UI.IconButton({ attrs: { gkey: 'sys:lang', title: F.t(db, 'toggle_lang') } }, [F.t(db, 'lang_short')]),
+            UI.IconButton({ attrs: { gkey: 'sys:theme', title: F.t(db, 'toggle_theme') } }, [D.Span({ attrs: { class: 'text-lg' } }, ['◐'])])
+          ])
+        ]),
+        screenContent,
+        UI.BottomNav({}, [
+          UI.NavItem({ attrs: { gkey: 'nav:home' }, active: currentScreen === 'home' }, [
+            D.Span({ attrs: { class: 'text-2xl' } }, ['🏠']),
+            D.Span({}, [F.t(db, 'nav_home')])
           ]),
-          D.Div({ attrs: { class: 'mt-4' } }, [renderStories(db)]),
-          D.Div({ attrs: { class: 'px-6 mt-6 flex items-center justify-between' } }, [
-            UI.SectionTitle({}, [F.t(db, 'featured_listings')]),
-            D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'view_all')])
+          UI.NavItem({ attrs: { gkey: 'nav:reels' }, active: currentScreen === 'reels' }, [
+            D.Span({ attrs: { class: 'text-xl' } }, ['🎬']),
+            D.Span({}, [F.t(db, 'nav_reels')])
           ]),
-          D.Div({ attrs: { class: 'px-6 mt-4 flex flex-col gap-4' } }, [renderListings(db)]),
-          D.Div({ attrs: { class: 'px-6 mt-6 flex items-center justify-between' } }, [
-            UI.SectionTitle({}, [F.t(db, 'latest_posts')]),
-            UI.PrimaryButton({}, [F.t(db, 'add_post')])
+          UI.NavItem({ attrs: { gkey: 'nav:inbox' }, active: currentScreen === 'inbox' }, [
+            D.Span({ attrs: { class: 'text-xl' } }, ['💬']),
+            D.Span({}, [F.t(db, 'nav_inbox')])
           ]),
-          D.Div({ attrs: { class: 'px-6 mt-4 flex flex-col gap-4' } }, [renderPosts(db)]),
-          D.Div({ attrs: { class: 'px-6 mt-6 flex items-center justify-between' } }, [
-            UI.SectionTitle({}, [F.t(db, 'reels')]),
-            D.Div({ attrs: { class: 'text-xs mobail-muted' } }, [F.t(db, 'discover')])
-          ]),
-          D.Div({ attrs: { class: 'px-6 mt-4' } }, [renderReels(db)]),
-          UI.BottomNav({}, [
-            UI.NavItem({}, [D.Span({ attrs: { class: 'text-base' } }, ['⌂']), D.Span({}, [F.t(db, 'nav_home')])]),
-            UI.NavItem({}, [D.Span({ attrs: { class: 'text-base' } }, ['▶']), D.Span({}, [F.t(db, 'nav_reels')])]),
-            UI.NavItem({}, [D.Span({ attrs: { class: 'text-base' } }, ['✉']), D.Span({}, [F.t(db, 'nav_inbox')])]),
-            UI.NavItem({}, [D.Span({ attrs: { class: 'text-base' } }, ['☺']), D.Span({}, [F.t(db, 'nav_profile')])])
+          UI.NavItem({ attrs: { gkey: 'nav:profile' }, active: currentScreen === 'profile' }, [
+            D.Span({ attrs: { class: 'text-xl' } }, ['👤']),
+            D.Span({}, [F.t(db, 'nav_profile')])
           ])
         ])
       ])

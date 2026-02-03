@@ -251,6 +251,46 @@ function body(db) {
 
 ---
 
+---
+
+## 4. Head Management (Styles & Metas) 🎩
+
+Mishkah Core handles the `<head>` of your document efficiently using `M.Head`.
+**Do NOT use `D.Style`**, `D.Script`, or `D.Meta` in your DSL body. Instead, use the `Head` API.
+
+### Injecting Styles 🎨
+
+```javascript
+// ✅ Correct: Using Head API
+if (M.Head) {
+  M.Head.style({
+    id: 'my-theme-tokens', // Unique ID prevents duplication
+    content: `
+      :root {
+        --primary: #0ea5e9;
+        --bg: #ffffff;
+      }
+    `
+  });
+}
+```
+
+### Injecting Metas & Scripts 🏷️
+
+```javascript
+M.Head.batch({
+  metas: [
+    { name: 'description', content: 'My App' },
+    { property: 'og:title', content: 'My App' }
+  ],
+  scripts: [
+    { src: 'https://cdn.example.com/lib.js', async: true }
+  ]
+});
+```
+
+---
+
 ## 🚀 Launching the App
 
 ```javascript
