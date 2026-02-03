@@ -48,10 +48,11 @@
     var output = [];
     var i;
     for (i = 0; i < listings.length; i += 1) {
+      var listingMedia = listings[i].primary_media || {};
       output.push(
         UI.ListingCard({}, [
           UI.MediaThumb({}, [
-            D.Img({ attrs: { src: listings[i].primary_media.media_url || '', class: 'w-full h-48 object-cover', alt: listings[i].headline || '' } }, [])
+            D.Img({ attrs: { src: listingMedia.media_url || '', class: 'w-full h-48 object-cover', alt: listings[i].headline || '' } }, [])
           ]),
           D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [
             D.Div({ attrs: { class: 'ui-text-body font-semibold' } }, [listings[i].headline || '']),
@@ -73,6 +74,7 @@
     var output = [];
     var i;
     for (i = 0; i < posts.length; i += 1) {
+      var postMedia = posts[i].media || {};
       output.push(
         UI.Card({ variant: 'raised' }, [
           D.Div({ attrs: { class: 'flex items-center gap-3' } }, [
@@ -85,7 +87,7 @@
             ])
           ]),
           UI.MediaThumb({ attrs: { class: 'mt-3' } }, [
-            D.Img({ attrs: { class: 'w-full h-48 object-cover', src: posts[i].media.media_url || '', alt: posts[i].caption || '' } }, [])
+            D.Img({ attrs: { class: 'w-full h-48 object-cover', src: postMedia.media_url || '', alt: posts[i].caption || '' } }, [])
           ])
         ])
       );
@@ -98,9 +100,10 @@
     var output = [];
     var i;
     for (i = 0; i < reels.length; i += 1) {
+      var reelMedia = reels[i].media || {};
       output.push(
         UI.ReelTile({}, [
-          D.Img({ attrs: { src: reels[i].media.media_thumbnail_url || reels[i].media.media_url || '', class: 'absolute inset-0 h-full w-full object-cover', alt: reels[i].caption || '' } }, []),
+          D.Img({ attrs: { src: reelMedia.media_thumbnail_url || reelMedia.media_url || '', class: 'absolute inset-0 h-full w-full object-cover', alt: reels[i].caption || '' } }, []),
           D.Div({ attrs: { class: 'absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/20 to-transparent p-3' } }, [
             D.Div({ attrs: { class: 'ui-text-small text-white' } }, [reels[i].caption || ''])
           ])
