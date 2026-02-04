@@ -1,0 +1,920 @@
+{
+    "name": "schema_brocker2",
+    "title": "Aqar 2.0",
+    "description": "Next-gen Real Estate Brokerage Platform (Social + Marketplace + CRM)",
+    "schema": {
+        "table_types": [
+            {
+                "id": "settings",
+                "labels": {
+                    "ar": "الإعدادات",
+                    "en": "Settings"
+                },
+                "icon": "⚙️"
+            },
+            {
+                "id": "inventory",
+                "labels": {
+                    "ar": "المخزون العقاري",
+                    "en": "Inventory"
+                },
+                "icon": "🏢"
+            },
+            {
+                "id": "social",
+                "labels": {
+                    "ar": "التواصل الاجتماعي",
+                    "en": "Social"
+                },
+                "icon": "🌐"
+            },
+            {
+                "id": "crm",
+                "labels": {
+                    "ar": "العملاء والطلبات",
+                    "en": "CRM"
+                },
+                "icon": "👥"
+            }
+        ],
+        "modules": [
+            {
+                "id": "core",
+                "parent_id": null,
+                "labels": {
+                    "ar": "النظام الأساسي",
+                    "en": "Core System"
+                },
+                "icon": "🏗️",
+                "order": 1
+            },
+            {
+                "id": "market",
+                "parent_id": null,
+                "labels": {
+                    "ar": "السوق العقاري",
+                    "en": "Marketplace"
+                },
+                "icon": "🏪",
+                "order": 2
+            },
+            {
+                "id": "market_inventory",
+                "parent_id": "market",
+                "labels": {
+                    "ar": "المشاريع والوحدات",
+                    "en": "Projects & Units"
+                },
+                "icon": "🏙️",
+                "order": 1
+            },
+            {
+                "id": "community",
+                "parent_id": null,
+                "labels": {
+                    "ar": "المجتمع",
+                    "en": "Community"
+                },
+                "icon": "💬",
+                "order": 3
+            },
+            {
+                "id": "sales",
+                "parent_id": null,
+                "labels": {
+                    "ar": "المبيعات",
+                    "en": "Sales"
+                },
+                "icon": "💰",
+                "order": 4
+            }
+        ],
+        "tables_meta": {
+            "app_settings": {
+                "type": "settings",
+                "icon": "📱"
+            },
+            "regions": {
+                "type": "settings",
+                "icon": "🗺️"
+            },
+            "developers": {
+                "type": "inventory",
+                "icon": "👷"
+            },
+            "projects": {
+                "type": "inventory",
+                "icon": "🏗️"
+            },
+            "buildings": {
+                "type": "inventory",
+                "icon": "🏢"
+            },
+            "units": {
+                "type": "inventory",
+                "icon": "🔑"
+            },
+            "posts": {
+                "type": "social",
+                "icon": "📝"
+            },
+            "reels": {
+                "type": "social",
+                "icon": "🎬"
+            },
+            "leads": {
+                "type": "crm",
+                "icon": "🎯"
+            },
+            "showings": {
+                "type": "crm",
+                "icon": "👀"
+            }
+        },
+        "tables": [
+            {
+                "name": "app_settings",
+                "label": "إعدادات التطبيق",
+                "sqlName": "app_settings",
+                "layout": {
+                    "x": 0,
+                    "y": 0
+                },
+                "smart_features": {
+                    "module_id": "core",
+                    "is_translatable": true,
+                    "translation_table": "app_settings_lang",
+                    "settings": {
+                        "icon": "📱",
+                        "info": "إعدادات واجهة التطبيق والهوية البصرية"
+                    },
+                    "columns": [
+                        {
+                            "name": "brand_name",
+                            "source": "lang",
+                            "is_table_show": true
+                        },
+                        {
+                            "name": "tagline",
+                            "source": "lang",
+                            "is_table_show": true
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "theme_color",
+                        "columnName": "theme_color",
+                        "type": "nvarchar",
+                        "maxLength": 20
+                    }
+                ]
+            },
+            {
+                "name": "app_settings_lang",
+                "label": "إعدادات التطبيق (ترجمة)",
+                "sqlName": "app_settings_lang",
+                "layout": {
+                    "x": 50,
+                    "y": 50
+                },
+                "smart_features": {
+                    "module_id": "core"
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "app_settings_id",
+                        "columnName": "app_settings_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "app_settings",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "lang",
+                        "columnName": "lang",
+                        "type": "nvarchar",
+                        "maxLength": 10
+                    },
+                    {
+                        "name": "brand_name",
+                        "columnName": "brand_name",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    },
+                    {
+                        "name": "tagline",
+                        "columnName": "tagline",
+                        "type": "nvarchar",
+                        "maxLength": 200
+                    }
+                ]
+            },
+            {
+                "name": "regions",
+                "label": "المناطق",
+                "sqlName": "regions",
+                "layout": {
+                    "x": 0,
+                    "y": 200
+                },
+                "smart_features": {
+                    "module_id": "core",
+                    "is_translatable": true,
+                    "translation_table": "regions_lang",
+                    "settings": {
+                        "icon": "🗺️",
+                        "info": "المناطق الجغرافية للمشاريع"
+                    },
+                    "display_rule": {
+                        "parts": [
+                            {
+                                "type": "lang",
+                                "name": "name"
+                            }
+                        ]
+                    },
+                    "columns": [
+                        {
+                            "name": "name",
+                            "source": "lang",
+                            "is_table_show": true
+                        },
+                        {
+                            "name": "city",
+                            "source": "lang",
+                            "is_table_show": true
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "priority",
+                        "columnName": "priority",
+                        "type": "int",
+                        "defaultValue": "0"
+                    }
+                ]
+            },
+            {
+                "name": "regions_lang",
+                "label": "المناطق (ترجمة)",
+                "sqlName": "regions_lang",
+                "layout": {
+                    "x": 50,
+                    "y": 250
+                },
+                "smart_features": {
+                    "module_id": "core"
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "regions_id",
+                        "columnName": "regions_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "regions",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "lang",
+                        "columnName": "lang",
+                        "type": "nvarchar",
+                        "maxLength": 10
+                    },
+                    {
+                        "name": "name",
+                        "columnName": "name",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    },
+                    {
+                        "name": "city",
+                        "columnName": "city",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    }
+                ]
+            },
+            {
+                "name": "developers",
+                "label": "المطورون",
+                "sqlName": "developers",
+                "layout": {
+                    "x": 200,
+                    "y": 200
+                },
+                "smart_features": {
+                    "module_id": "market_inventory",
+                    "is_translatable": true,
+                    "translation_table": "developers_lang",
+                    "settings": {
+                        "icon": "👷",
+                        "info": "شركات التطوير العقاري"
+                    },
+                    "display_rule": {
+                        "parts": [
+                            {
+                                "type": "lang",
+                                "name": "company_name"
+                            }
+                        ]
+                    },
+                    "columns": [
+                        {
+                            "name": "company_name",
+                            "source": "lang",
+                            "is_table_show": true
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "logo_url",
+                        "columnName": "logo_url",
+                        "type": "nvarchar",
+                        "maxLength": 500
+                    },
+                    {
+                        "name": "contact_phone",
+                        "columnName": "contact_phone",
+                        "type": "nvarchar",
+                        "maxLength": 50
+                    }
+                ]
+            },
+            {
+                "name": "developers_lang",
+                "label": "المطورون (ترجمة)",
+                "sqlName": "developers_lang",
+                "layout": {
+                    "x": 250,
+                    "y": 250
+                },
+                "smart_features": {
+                    "module_id": "market_inventory"
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "developers_id",
+                        "columnName": "developers_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "developers",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "lang",
+                        "columnName": "lang",
+                        "type": "nvarchar",
+                        "maxLength": 10
+                    },
+                    {
+                        "name": "company_name",
+                        "columnName": "company_name",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    },
+                    {
+                        "name": "description",
+                        "columnName": "description",
+                        "type": "ntext"
+                    }
+                ]
+            },
+            {
+                "name": "projects",
+                "label": "المشاريع",
+                "sqlName": "projects",
+                "layout": {
+                    "x": 400,
+                    "y": 200
+                },
+                "smart_features": {
+                    "module_id": "market_inventory",
+                    "is_translatable": true,
+                    "translation_table": "projects_lang",
+                    "settings": {
+                        "icon": "🏗️",
+                        "info": "المشاريع السكنية والتجارية"
+                    },
+                    "display_rule": {
+                        "parts": [
+                            {
+                                "type": "lang",
+                                "name": "project_name"
+                            }
+                        ]
+                    },
+                    "columns": [
+                        {
+                            "name": "project_name",
+                            "source": "lang",
+                            "is_table_show": true
+                        }
+                    ]
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "developer_id",
+                        "columnName": "developer_id",
+                        "type": "uuid",
+                        "nullable": false,
+                        "references": {
+                            "table": "developers",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "region_id",
+                        "columnName": "region_id",
+                        "type": "uuid",
+                        "nullable": false,
+                        "references": {
+                            "table": "regions",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "columnName": "status",
+                        "type": "nvarchar",
+                        "maxLength": 50,
+                        "defaultValue": "'upcoming'"
+                    },
+                    {
+                        "name": "delivery_date",
+                        "columnName": "delivery_date",
+                        "type": "date"
+                    }
+                ]
+            },
+            {
+                "name": "projects_lang",
+                "label": "المشاريع (ترجمة)",
+                "sqlName": "projects_lang",
+                "layout": {
+                    "x": 450,
+                    "y": 250
+                },
+                "smart_features": {
+                    "module_id": "market_inventory"
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "projects_id",
+                        "columnName": "projects_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "projects",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "lang",
+                        "columnName": "lang",
+                        "type": "nvarchar",
+                        "maxLength": 10
+                    },
+                    {
+                        "name": "project_name",
+                        "columnName": "project_name",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    },
+                    {
+                        "name": "description",
+                        "columnName": "description",
+                        "type": "ntext"
+                    }
+                ]
+            },
+            {
+                "name": "units",
+                "label": "الوحدات",
+                "sqlName": "units",
+                "layout": {
+                    "x": 600,
+                    "y": 200
+                },
+                "smart_features": {
+                    "module_id": "market_inventory",
+                    "is_translatable": true,
+                    "translation_table": "units_lang",
+                    "settings": {
+                        "icon": "🔑",
+                        "info": "الوحدات المتاحة للبيع"
+                    },
+                    "display_rule": {
+                        "parts": [
+                            {
+                                "type": "direct",
+                                "name": "unit_code"
+                            },
+                            {
+                                "type": "text",
+                                "value": " - "
+                            },
+                            {
+                                "type": "direct",
+                                "name": "price"
+                            }
+                        ]
+                    }
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "project_id",
+                        "columnName": "project_id",
+                        "type": "uuid",
+                        "nullable": false,
+                        "references": {
+                            "table": "projects",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "unit_code",
+                        "columnName": "unit_code",
+                        "type": "nvarchar",
+                        "maxLength": 50
+                    },
+                    {
+                        "name": "type",
+                        "columnName": "type",
+                        "type": "nvarchar",
+                        "maxLength": 50
+                    },
+                    {
+                        "name": "price",
+                        "columnName": "price",
+                        "type": "decimal"
+                    },
+                    {
+                        "name": "area",
+                        "columnName": "area",
+                        "type": "decimal"
+                    },
+                    {
+                        "name": "bedrooms",
+                        "columnName": "bedrooms",
+                        "type": "int"
+                    },
+                    {
+                        "name": "bathrooms",
+                        "columnName": "bathrooms",
+                        "type": "int"
+                    },
+                    {
+                        "name": "status",
+                        "columnName": "status",
+                        "type": "nvarchar",
+                        "maxLength": 20,
+                        "defaultValue": "'available'"
+                    }
+                ]
+            },
+            {
+                "name": "units_lang",
+                "label": "الوحدات (ترجمة)",
+                "sqlName": "units_lang",
+                "layout": {
+                    "x": 650,
+                    "y": 250
+                },
+                "smart_features": {
+                    "module_id": "market_inventory"
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "units_id",
+                        "columnName": "units_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "units",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "lang",
+                        "columnName": "lang",
+                        "type": "nvarchar",
+                        "maxLength": 10
+                    },
+                    {
+                        "name": "description",
+                        "columnName": "description",
+                        "type": "ntext"
+                    },
+                    {
+                        "name": "view_type",
+                        "columnName": "view_type",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    }
+                ]
+            },
+            {
+                "name": "posts",
+                "label": "المنشورات",
+                "sqlName": "posts",
+                "smart_features": {
+                    "module_id": "community",
+                    "settings": {
+                        "icon": "📝",
+                        "info": "أخبار ومقالات عقارية"
+                    }
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "author_id",
+                        "columnName": "author_id",
+                        "type": "uuid"
+                    },
+                    {
+                        "name": "content",
+                        "columnName": "content",
+                        "type": "ntext"
+                    },
+                    {
+                        "name": "created_at",
+                        "columnName": "created_at",
+                        "type": "datetime"
+                    }
+                ]
+            },
+            {
+                "name": "reels",
+                "label": "الفيديو (Reels)",
+                "sqlName": "reels",
+                "smart_features": {
+                    "module_id": "community",
+                    "settings": {
+                        "icon": "🎬",
+                        "info": "فيديوهات قصيرة للعقارات"
+                    }
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "author_id",
+                        "columnName": "author_id",
+                        "type": "uuid"
+                    },
+                    {
+                        "name": "video_url",
+                        "columnName": "video_url",
+                        "type": "nvarchar",
+                        "maxLength": 500
+                    },
+                    {
+                        "name": "caption",
+                        "columnName": "caption",
+                        "type": "nvarchar",
+                        "maxLength": 500
+                    },
+                    {
+                        "name": "likes_count",
+                        "columnName": "likes_count",
+                        "type": "int",
+                        "defaultValue": "0"
+                    }
+                ]
+            },
+            {
+                "name": "inquiries",
+                "label": "الاستفسارات",
+                "sqlName": "inquiries",
+                "smart_features": {
+                    "module_id": "crm",
+                    "settings": {
+                        "icon": "📨",
+                        "info": "طلبات العملاء"
+                    }
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "user_id",
+                        "columnName": "user_id",
+                        "type": "uuid"
+                    },
+                    {
+                        "name": "project_id",
+                        "columnName": "project_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "projects",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "unit_id",
+                        "columnName": "unit_id",
+                        "type": "uuid",
+                        "references": {
+                            "table": "units",
+                            "column": "id"
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "columnName": "message",
+                        "type": "ntext"
+                    },
+                    {
+                        "name": "status",
+                        "columnName": "status",
+                        "type": "nvarchar",
+                        "maxLength": 20,
+                        "defaultValue": "'new'"
+                    },
+                    {
+                        "name": "created_at",
+                        "columnName": "created_at",
+                        "type": "datetime"
+                    }
+                ]
+            },
+            {
+                "name": "interactions",
+                "label": "التفاعلات",
+                "sqlName": "interactions",
+                "smart_features": {
+                    "module_id": "community",
+                    "settings": {
+                        "icon": "❤️",
+                        "info": "الإعجابات والتعليقات"
+                    }
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "user_id",
+                        "columnName": "user_id",
+                        "type": "uuid"
+                    },
+                    {
+                        "name": "target_type",
+                        "columnName": "target_type",
+                        "type": "nvarchar",
+                        "maxLength": 20
+                    },
+                    {
+                        "name": "target_id",
+                        "columnName": "target_id",
+                        "type": "uuid"
+                    },
+                    {
+                        "name": "type",
+                        "columnName": "type",
+                        "type": "nvarchar",
+                        "maxLength": 20
+                    },
+                    {
+                        "name": "content",
+                        "columnName": "content",
+                        "type": "ntext"
+                    },
+                    {
+                        "name": "created_at",
+                        "columnName": "created_at",
+                        "type": "datetime"
+                    }
+                ]
+            },
+            {
+                "name": "notifications",
+                "label": "الإشعارات",
+                "sqlName": "notifications",
+                "smart_features": {
+                    "module_id": "core",
+                    "settings": {
+                        "icon": "🔔",
+                        "info": "تنبيهات النظام والعروض"
+                    }
+                },
+                "fields": [
+                    {
+                        "name": "id",
+                        "columnName": "id",
+                        "type": "uuid",
+                        "primaryKey": true
+                    },
+                    {
+                        "name": "user_id",
+                        "columnName": "user_id",
+                        "type": "uuid"
+                    },
+                    {
+                        "name": "title",
+                        "columnName": "title",
+                        "type": "nvarchar",
+                        "maxLength": 100
+                    },
+                    {
+                        "name": "body",
+                        "columnName": "body",
+                        "type": "nvarchar",
+                        "maxLength": 500
+                    },
+                    {
+                        "name": "is_read",
+                        "columnName": "is_read",
+                        "type": "bit",
+                        "defaultValue": "0"
+                    },
+                    {
+                        "name": "created_at",
+                        "columnName": "created_at",
+                        "type": "datetime"
+                    }
+                ]
+            }
+        ]
+    }
+}

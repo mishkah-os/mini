@@ -148,7 +148,8 @@
                     historyLimit: 200,
                     autoReconnect: true,
                     logger: console,
-                    lang: currentLang
+                    lang: currentLang,
+                    apiBaseUrl: resolveApiBase() // ✨ Use https://ws.mas.com.eg
                 });
 
                 return realtime.ready();
