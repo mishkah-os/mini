@@ -11,30 +11,20 @@
 <body class="bg-slate-950">
   <div id="app"></div>
 
+  <!-- Core SDK -->
   <script src="lib/mishkah.core.js"></script>
+  <script src="lib/mishkah.store.js"></script>
+  <script src="lib/mishkah.simple-store.js"></script>
+  <script src="lib/mishkah-rest.js"></script>
+
+  <!-- UI Kit -->
   <script src="mobail-ui.js"></script>
   <script src="functions.js"></script>
   <script src="orders.js"></script>
+
+  <!-- View & Logic -->
   <script src="borker-ui.js"></script>
-  <script src="indexeddb-util.js"></script>
-  <script src="seeds.json.js"></script>
-
-  <script>
-    var seedConfig = {
-      name: 'brocker-db',
-      version: 2,
-      stores: [
-        { name: 'meta', keyPath: 'id' },
-        { name: 'data', keyPath: 'id' },
-        { name: 'logs', keyPath: 'id', autoIncrement: true }
-      ]
-    };
-
-    IndexedDBUtil.seedDatabase(seedConfig, window.db).then(function (loaded) {
-      Mishkah.app.setBody(BrockerUI.body);
-      Mishkah.app.create(loaded, BrockerOrders).mount('#app');
-    });
-  </script>
+  <script type="module" src="app.js"></script>
 </body>
 
 </html>

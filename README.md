@@ -1,4 +1,5 @@
 # Brocker - Social Real Estate Network
+
 ## Product Requirements Document (PRD) & Technical Specification
 
 **Version:** 1.0  
@@ -14,22 +15,44 @@
 **Brocker** is an innovative social real estate platform that combines traditional property marketplace functionality with modern social media features. The platform enables real estate professionals (Sellers) to showcase properties and build their personal brand through reels and posts, while Buyers can discover properties and connect with sellers through a controlled, admin-moderated contact system.
 
 ### Vision Statement
+
 *"Revolutionizing real estate discovery through social engagement and trusted connections."*
 
 ### Mission
+
 To create a secure, engaging platform where property transactions are enhanced by social interactions, professional networking, and verified communication channels.
 
 ---
 
-## 2. System Overview
+## 2. Technical Architecture
+
+### 2.1 Core Stack
+
+- **Frontend State**: `mishkah.simple-store.js` (WebSocket-based real-time sync)
+- **Backend API**: `mishkah-rest` (Heavy operations & specialized CRUD)
+- **Data Schema**: `brocker2.json` (Smart schema with vertical i18n)
+- **Module**: `aqar2` (Integrated into OS/Data/Modules)
+
+### 2.2 Data Strategy
+
+- **Lightweight Sync**: Objects like `app_settings`, `posts`, `reels`, and `notifications` are synced via `Mishkah Store` WebSocket for instant reactivity.
+- **Heavy Data**: Large datasets like `projects`, `units`, and `analytics` are fetched via `Mishkah REST` to optimize bandwidth and memory.
+- **Internationalization**: Full vertical `_lang` table structure for all primary entities (`regions`, `developers`, `projects`, `units`).
+
+---
+
+## 3. System Overview
 
 ### 2.1 Platform Description
+
 Brocker is a hybrid platform operating as:
+
 - **Real Estate Marketplace**: Property listings, search, and discovery
 - **Social Network**: Posts, reels, profiles, and engagement
 - **Controlled Communication Hub**: Admin-moderated buyer-seller connections
 
 ### 2.2 Key Differentiators
+
 | Feature | Traditional Platforms | Brocker |
 |---------|----------------------|---------|
 | Contact | Direct access | Admin-approved |
@@ -38,6 +61,7 @@ Brocker is a hybrid platform operating as:
 | Trust | Reviews only | Verified connections |
 
 ### 2.3 Target Users
+
 - **Sellers**: Real estate agents, property developers, individual property owners
 - **Buyers**: Property seekers, investors, renters
 - **Admins**: Platform moderators and managers
@@ -65,7 +89,9 @@ Brocker is a hybrid platform operating as:
 | Promote Properties as Ads | ❌ | ✅ | ❌ |
 
 ### 3.2 Admin Role
+
 **Responsibilities:**
+
 - User management (sellers & buyers)
 - Contact request approval/rejection
 - Content moderation (posts, reels, chats)
@@ -76,7 +102,9 @@ Brocker is a hybrid platform operating as:
 **Access Level:** Full system access
 
 ### 3.3 Seller Role
+
 **Capabilities:**
+
 - Create and manage professional profile
 - Add, edit, delete property listings
 - Create and publish reels (short videos)
@@ -88,12 +116,15 @@ Brocker is a hybrid platform operating as:
 - View personal analytics
 
 **Restrictions:**
+
 - Cannot initiate contact with buyers
 - Cannot approve contact requests
 - Cannot access admin functions
 
 ### 3.4 Buyer Role
+
 **Capabilities:**
+
 - Create and manage personal profile
 - Browse all property listings
 - View seller profiles, reels, and posts
@@ -104,6 +135,7 @@ Brocker is a hybrid platform operating as:
 - Search and filter properties
 
 **Restrictions:**
+
 - Cannot create property listings
 - Cannot directly contact sellers (requires approval)
 - Cannot promote advertisements
@@ -115,6 +147,7 @@ Brocker is a hybrid platform operating as:
 ### 4.1 Core Features
 
 #### Authentication & Profiles
+
 - User registration (email, phone, social login)
 - Email/phone verification
 - Profile creation and management
@@ -123,6 +156,7 @@ Brocker is a hybrid platform operating as:
 - Professional credentials (for sellers)
 
 #### Property Management
+
 - Property listing creation
 - Photo gallery (multiple images)
 - Video tours
@@ -133,6 +167,7 @@ Brocker is a hybrid platform operating as:
 - Property bookmarking
 
 #### Social Features
+
 - **Reels**: 15-60 second vertical videos
 - **Posts**: Text, images, property updates
 - **Feed**: Chronological/algorithmic content display
@@ -141,12 +176,14 @@ Brocker is a hybrid platform operating as:
 - **Notifications**: Real-time updates
 
 #### Communication
+
 - Contact request system
 - Real-time chat (text + images)
 - Voice calls (after approval)
 - Chat history and archives
 
 #### Advertising
+
 - Property promotion
 - Featured listings
 - Banner advertisements
@@ -155,6 +192,7 @@ Brocker is a hybrid platform operating as:
 ### 4.2 Dashboard Features
 
 #### Seller Dashboard
+
 ```
 ┌─────────────────────────────────────────────┐
 │           SELLER DASHBOARD                  │
@@ -186,6 +224,7 @@ Brocker is a hybrid platform operating as:
 ```
 
 #### Admin Dashboard
+
 ```
 ┌─────────────────────────────────────────────┐
 │           ADMIN DASHBOARD                   │
@@ -344,6 +383,7 @@ Benefits of High Completeness:
 ### 5.4 Portfolio Features by Module
 
 #### 5.4.1 Identity Module
+
 | Field | Type | Required | Translatable |
 |-------|------|----------|--------------|
 | Full Name | Text | Yes | No |
@@ -358,6 +398,7 @@ Benefits of High Completeness:
 | Social Media Links | JSON | No | No |
 
 #### 5.4.2 Credentials Module
+
 | Field | Type | Required | Translatable |
 |-------|------|----------|--------------|
 | License Number | Text | Yes (Sellers) | No |
@@ -370,6 +411,7 @@ Benefits of High Completeness:
 | Education | Array | No | Yes |
 
 #### 5.4.3 Showcase Module
+
 | Field | Type | Required | Translatable |
 |-------|------|----------|--------------|
 | Featured Properties | References | No | N/A |
@@ -379,6 +421,7 @@ Benefits of High Completeness:
 | Case Studies | Array | No | Yes |
 
 #### 5.4.4 Services Module
+
 | Field | Type | Required | Translatable |
 |-------|------|----------|--------------|
 | Service Types | Multi-select | Yes | Yes |
@@ -389,6 +432,7 @@ Benefits of High Completeness:
 | Consultation Fee | Decimal | No | No |
 
 #### 5.4.5 Performance Module (Auto-calculated)
+
 | Metric | Source | Display |
 |--------|--------|---------|
 | Total Listings | System | Public |
@@ -642,9 +686,11 @@ RULE: ADVERTISING_SYSTEM
 ## 7. Chat System Architecture
 
 ### 7.1 Overview
+
 The chat system enables real-time communication between approved buyer-seller pairs.
 
 ### 7.2 Features
+
 - Real-time message delivery
 - Text messages
 - Image sharing (up to 10MB)
@@ -954,6 +1000,7 @@ Brocker implements a **Vertical Language System** for multi-language support, se
 ### 10.2 Vertical vs. Horizontal Translation Models
 
 #### Traditional Horizontal Model (NOT USED)
+
 ```sql
 -- ❌ Horizontal: Multiple columns per language
 CREATE TABLE properties (
@@ -970,6 +1017,7 @@ CREATE TABLE properties (
 ```
 
 #### Vertical Model (BROCKER APPROACH)
+
 ```sql
 -- ✅ Vertical: Base table + Translation table
 CREATE TABLE properties (
@@ -1050,6 +1098,7 @@ CREATE TABLE properties_lang (
 The **Flattening Mechanism** merges translation data into base records at the API layer:
 
 #### Backend Process (Node.js/Python)
+
 ```javascript
 // Pseudo-code for translation flattening
 async function getPropertiesWithTranslation(filters, lang = 'ar', fallbackLang = 'en') {
@@ -1198,6 +1247,7 @@ INSERT INTO ui_labels_lang (ui_labels_id, lang, text) VALUES
 ### 10.9 Frontend Translation Integration
 
 #### Language Switching
+
 ```javascript
 // Frontend: Language toggle
 function setLanguage(lang) {
@@ -1227,6 +1277,7 @@ async function reloadDataWithLanguage(lang) {
 ```
 
 #### Translation Helper Function
+
 ```javascript
 // Frontend: Translation helper
 function translate(key, lang = getCurrentLang()) {
@@ -1241,6 +1292,7 @@ const title = translate('property.details.title');  // "عنوان العقار"
 ### 10.10 CRUD Operations with Translations
 
 #### Creating a Record with Translations
+
 ```javascript
 // API Request: POST /api/v1/properties
 {
@@ -1283,6 +1335,7 @@ async function createPropertyWithTranslations(data) {
 ```
 
 #### Updating Translations
+
 ```javascript
 // API Request: PUT /api/v1/properties/:id/translations
 {
@@ -1304,6 +1357,7 @@ async function updateTranslation(propertyId, lang, fields) {
 ### 10.11 Translation Best Practices
 
 #### DO's ✅
+
 - Always provide at least 2 languages (default + English)
 - Use fallback language when translation is missing
 - Store only text fields in `_lang` tables
@@ -1312,6 +1366,7 @@ async function updateTranslation(propertyId, lang, fields) {
 - Validate language code against `languages` table
 
 #### DON'Ts ❌
+
 - Don't store non-text data in `_lang` tables
 - Don't duplicate data across base and `_lang` tables
 - Don't hard-code language-specific text in code
@@ -1411,6 +1466,7 @@ GROUP BY t.table_name, l.code;
 ### 11.2 Table Definitions
 
 #### Users Table
+
 ```sql
 CREATE TABLE users (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1437,6 +1493,7 @@ CREATE INDEX idx_users_email ON users(email);
 ```
 
 #### Seller Profiles Table (Base)
+
 ```sql
 CREATE TABLE seller_profiles (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1497,6 +1554,7 @@ CREATE INDEX idx_seller_profiles_completeness ON seller_profiles(profile_complet
 ```
 
 #### Seller Profiles Translation Table
+
 ```sql
 CREATE TABLE seller_profiles_lang (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1539,6 +1597,7 @@ CREATE INDEX idx_seller_profiles_lang_lang ON seller_profiles_lang(lang);
 ```
 
 #### Seller Credentials Table (Optional - for detailed tracking)
+
 ```sql
 CREATE TABLE seller_credentials (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1558,6 +1617,7 @@ CREATE INDEX idx_seller_credentials_type ON seller_credentials(type);
 ```
 
 #### Seller Credentials Translation Table
+
 ```sql
 CREATE TABLE seller_credentials_lang (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1577,6 +1637,7 @@ CREATE INDEX idx_seller_credentials_lang_cred ON seller_credentials_lang(seller_
 ```
 
 #### Seller Reviews Table
+
 ```sql
 CREATE TABLE seller_reviews (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1607,6 +1668,7 @@ CREATE INDEX idx_seller_reviews_created ON seller_reviews(created_at DESC);
 ```
 
 #### Seller Reviews Translation Table
+
 ```sql
 CREATE TABLE seller_reviews_lang (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1626,6 +1688,7 @@ CREATE INDEX idx_seller_reviews_lang_review ON seller_reviews_lang(seller_review
 ```
 
 #### Properties Table (Base)
+
 ```sql
 CREATE TABLE properties (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1687,6 +1750,7 @@ CREATE INDEX idx_properties_created ON properties(created_at DESC);
 ```
 
 #### Properties Translation Table
+
 ```sql
 CREATE TABLE properties_lang (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1725,6 +1789,7 @@ CREATE INDEX idx_properties_lang_city ON properties_lang(city);
 ```
 
 #### Property Categories Table
+
 ```sql
 CREATE TABLE property_categories (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1740,6 +1805,7 @@ CREATE INDEX idx_property_categories_parent ON property_categories(parent_id);
 ```
 
 #### Property Categories Translation Table
+
 ```sql
 CREATE TABLE property_categories_lang (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1758,6 +1824,7 @@ CREATE INDEX idx_property_categories_lang_cat ON property_categories_lang(proper
 ```
 
 #### Amenities Table
+
 ```sql
 CREATE TABLE amenities (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1770,6 +1837,7 @@ CREATE TABLE amenities (
 ```
 
 #### Amenities Translation Table
+
 ```sql
 CREATE TABLE amenities_lang (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1788,6 +1856,7 @@ CREATE INDEX idx_amenities_lang_amenity ON amenities_lang(amenities_id);
 ```
 
 #### Property Images Table
+
 ```sql
 CREATE TABLE property_images (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1803,6 +1872,7 @@ CREATE INDEX idx_property_images_property ON property_images(property_id);
 ```
 
 #### Posts Table (Base)
+
 ```sql
 CREATE TABLE posts (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1834,6 +1904,7 @@ CREATE INDEX idx_posts_visible ON posts(is_visible, created_at DESC);
 ```
 
 #### Posts Translation Table
+
 ```sql
 CREATE TABLE posts_lang (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1856,6 +1927,7 @@ CREATE INDEX idx_posts_lang_lang ON posts_lang(lang);
 ```
 
 #### Reels Table (Base)
+
 ```sql
 CREATE TABLE reels (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1889,6 +1961,7 @@ CREATE INDEX idx_reels_visible ON reels(is_visible, created_at DESC);
 ```
 
 #### Reels Translation Table
+
 ```sql
 CREATE TABLE reels_lang (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1911,6 +1984,7 @@ CREATE INDEX idx_reels_lang_lang ON reels_lang(lang);
 ```
 
 #### Contact Requests Table
+
 ```sql
 CREATE TABLE contact_requests (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1934,6 +2008,7 @@ CREATE INDEX idx_contact_requests_status ON contact_requests(status);
 ```
 
 #### Conversations Table
+
 ```sql
 CREATE TABLE conversations (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1952,6 +2027,7 @@ CREATE INDEX idx_conversations_seller ON conversations(seller_id);
 ```
 
 #### Messages Table (MongoDB Schema)
+
 ```javascript
 // MongoDB Collection: messages
 {
@@ -1974,6 +2050,7 @@ db.messages.createIndex({ receiverId: 1, isRead: 1 })
 ```
 
 #### Advertisements Table
+
 ```sql
 CREATE TABLE advertisements (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2006,6 +2083,7 @@ CREATE INDEX idx_ads_dates ON advertisements(start_date, end_date);
 ```
 
 #### Follows Table
+
 ```sql
 CREATE TABLE follows (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2022,6 +2100,7 @@ CREATE INDEX idx_follows_following ON follows(following_id);
 ```
 
 #### Likes Table
+
 ```sql
 CREATE TABLE likes (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2043,6 +2122,7 @@ CREATE INDEX idx_likes_reel ON likes(reel_id);
 ```
 
 #### Comments Table
+
 ```sql
 CREATE TABLE comments (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2068,6 +2148,7 @@ CREATE INDEX idx_comments_parent ON comments(parent_id);
 ```
 
 #### Property Bookmarks Table
+
 ```sql
 CREATE TABLE property_bookmarks (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2082,6 +2163,7 @@ CREATE INDEX idx_bookmarks_user ON property_bookmarks(user_id);
 ```
 
 #### Notifications Table
+
 ```sql
 CREATE TABLE notifications (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2100,6 +2182,7 @@ CREATE INDEX idx_notifications_created ON notifications(created_at DESC);
 ```
 
 #### Languages Table
+
 ```sql
 CREATE TABLE languages (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2125,6 +2208,7 @@ INSERT INTO languages (code, name, native_name, direction, is_default, display_o
 ```
 
 #### UI Labels Table
+
 ```sql
 CREATE TABLE ui_labels (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2140,6 +2224,7 @@ CREATE INDEX idx_ui_labels_code ON ui_labels(code);
 ```
 
 #### UI Labels Translation Table
+
 ```sql
 CREATE TABLE ui_labels_lang (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -2188,137 +2273,62 @@ INSERT INTO ui_labels_lang (ui_labels_id, lang, text) VALUES
 
 ---
 
-## 12. API Endpoints
+## 12. Data Access Layer & API
 
-### 12.1 Authentication APIs
+The platform relies on the **Mishkah Query System**, which provides a dual-layer data access strategy: **Real-time Store** (WebSocket) for reactive UI state and **Universal REST** for heavy CRUD operations.
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/v1/auth/register` | Register new user |
-| POST | `/api/v1/auth/login` | User login |
-| POST | `/api/v1/auth/logout` | User logout |
-| POST | `/api/v1/auth/refresh-token` | Refresh access token |
-| POST | `/api/v1/auth/forgot-password` | Request password reset |
-| POST | `/api/v1/auth/reset-password` | Reset password |
-| POST | `/api/v1/auth/verify-email` | Verify email with OTP |
-| POST | `/api/v1/auth/verify-phone` | Verify phone with OTP |
-| POST | `/api/v1/auth/social/google` | Google OAuth login |
-| POST | `/api/v1/auth/social/apple` | Apple OAuth login |
+### 12.1 Universal CRUD API (`mishkah-rest`)
 
-### 12.2 User APIs
+Instead of bespoke endpoints for every resource, the system uses a powerful universal CRUD interface capable of handling any schema-defined table.
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/v1/users/me` | Get current user profile |
-| PUT | `/api/v1/users/me` | Update current user profile |
-| DELETE | `/api/v1/users/me` | Delete account |
-| GET | `/api/v1/users/:id` | Get user by ID |
-| GET | `/api/v1/users/:id/properties` | Get user's properties |
-| GET | `/api/v1/users/:id/posts` | Get user's posts |
-| GET | `/api/v1/users/:id/reels` | Get user's reels |
-| POST | `/api/v1/users/:id/follow` | Follow user |
-| DELETE | `/api/v1/users/:id/follow` | Unfollow user |
-| GET | `/api/v1/users/:id/followers` | Get user's followers |
-| GET | `/api/v1/users/:id/following` | Get user's following |
+| **GET** | `/api/v1/crud/tables` | Fetch schema metadata, module structure, and FK references. |
+| **POST** | `/api/v1/crud/:table/search` | Advanced search with pagination, filtering, and **Smart Hydration** (resolves FKs and translations). |
+| **GET** | `/api/v1/crud/:table/:id` | Fetch single record with deep hydration and vertical translation maps. |
+| **POST** | `/api/v1/crud/:table` | Create new record. |
+| **PUT** | `/api/v1/crud/:table/:id` | Update existing record. |
+| **DELETE** | `/api/v1/crud/:table/:id` | Delete record. |
+| **POST** | `/api/v1/rpc/:function` | Execute specialized server-side logic (e.g., complex calculations, state transitions). |
 
-### 12.3 Property APIs
+### 12.2 Real-time Store (`mishkah-store`)
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/properties` | List properties (with filters) |
-| POST | `/api/v1/properties` | Create property (seller only) |
-| GET | `/api/v1/properties/:id` | Get property details |
-| PUT | `/api/v1/properties/:id` | Update property |
-| DELETE | `/api/v1/properties/:id` | Delete property |
-| POST | `/api/v1/properties/:id/images` | Upload property images |
-| DELETE | `/api/v1/properties/:id/images/:imageId` | Delete image |
-| POST | `/api/v1/properties/:id/bookmark` | Bookmark property |
-| DELETE | `/api/v1/properties/:id/bookmark` | Remove bookmark |
-| GET | `/api/v1/properties/bookmarks` | Get bookmarked properties |
-| GET | `/api/v1/properties/search` | Advanced property search |
-| GET | `/api/v1/properties/nearby` | Get nearby properties |
+Lightweight entities (Notifications, Chat, App Settings) and "Hot" data are synced automatically via WebSocket.
 
-### 12.4 Social APIs
+```javascript
+import { createDB } from './lib/mishkah.simple-store.js';
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/feed` | Get personalized feed |
-| GET | `/api/v1/posts` | List posts |
-| POST | `/api/v1/posts` | Create post |
-| GET | `/api/v1/posts/:id` | Get post details |
-| PUT | `/api/v1/posts/:id` | Update post |
-| DELETE | `/api/v1/posts/:id` | Delete post |
-| POST | `/api/v1/posts/:id/like` | Like post |
-| DELETE | `/api/v1/posts/:id/like` | Unlike post |
-| GET | `/api/v1/posts/:id/comments` | Get post comments |
-| POST | `/api/v1/posts/:id/comments` | Add comment |
-| GET | `/api/v1/reels` | List reels |
-| POST | `/api/v1/reels` | Create reel |
-| GET | `/api/v1/reels/:id` | Get reel details |
-| DELETE | `/api/v1/reels/:id` | Delete reel |
-| POST | `/api/v1/reels/:id/like` | Like reel |
-| DELETE | `/api/v1/reels/:id/like` | Unlike reel |
-| GET | `/api/v1/reels/:id/comments` | Get reel comments |
-| POST | `/api/v1/reels/:id/comments` | Add comment |
-| GET | `/api/v1/explore` | Get explore/discover content |
-| GET | `/api/v1/hashtags/:tag` | Get content by hashtag |
+const db = createDB({
+  branchId: 'aqar2',
+  moduleId: 'brocker2',
+  objects: {
+    posts: { table: 'posts' },          // Auto-synced feed
+    notifications: { table: 'notifs' }  // Real-time alerts
+  }
+});
 
-### 12.5 Contact APIs
+// Reactivity
+db.watch('posts', (feed) => {
+  renderFeed(feed); // Updates instantly when server pushes changes
+});
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/contacts/requests` | Get contact requests |
-| POST | `/api/v1/contacts/requests` | Send contact request |
-| GET | `/api/v1/contacts/requests/:id` | Get request details |
-| DELETE | `/api/v1/contacts/requests/:id` | Cancel request |
-| GET | `/api/v1/contacts` | Get approved contacts |
-| POST | `/api/v1/contacts/:id/block` | Block contact |
-| DELETE | `/api/v1/contacts/:id/block` | Unblock contact |
+### 12.3 Query capabilities
 
-### 12.6 Chat APIs
+The `/search` endpoint supports a rich payload for filtering and shaping data:
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/conversations` | Get conversations |
-| GET | `/api/v1/conversations/:id` | Get conversation details |
-| GET | `/api/v1/conversations/:id/messages` | Get messages |
-| POST | `/api/v1/conversations/:id/messages` | Send message |
-| PUT | `/api/v1/conversations/:id/read` | Mark as read |
-| POST | `/api/v1/conversations/:id/archive` | Archive conversation |
-| DELETE | `/api/v1/messages/:id` | Delete message |
-
-### 12.7 Advertisement APIs
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/ads` | Get seller's ads |
-| POST | `/api/v1/ads` | Create ad campaign |
-| GET | `/api/v1/ads/:id` | Get ad details |
-| PUT | `/api/v1/ads/:id` | Update ad |
-| DELETE | `/api/v1/ads/:id` | Cancel ad |
-| POST | `/api/v1/ads/:id/pause` | Pause ad |
-| POST | `/api/v1/ads/:id/resume` | Resume ad |
-| GET | `/api/v1/ads/:id/analytics` | Get ad analytics |
-
-### 12.8 Admin APIs
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/admin/users` | List all users |
-| GET | `/api/v1/admin/users/:id` | Get user details |
-| PUT | `/api/v1/admin/users/:id` | Update user |
-| POST | `/api/v1/admin/users/:id/suspend` | Suspend user |
-| POST | `/api/v1/admin/users/:id/activate` | Activate user |
-| GET | `/api/v1/admin/contact-requests` | Get pending requests |
-| PUT | `/api/v1/admin/contact-requests/:id` | Approve/reject request |
-| GET | `/api/v1/admin/content/reported` | Get reported content |
-| PUT | `/api/v1/admin/content/:id/moderate` | Moderate content |
-| GET | `/api/v1/admin/ads/pending` | Get pending ads |
-| PUT | `/api/v1/admin/ads/:id/review` | Approve/reject ad |
-| GET | `/api/v1/admin/analytics/users` | User analytics |
-| GET | `/api/v1/admin/analytics/properties` | Property analytics |
-| GET | `/api/v1/admin/analytics/engagement` | Engagement analytics |
-| GET | `/api/v1/admin/analytics/revenue` | Revenue analytics |
+```json
+{
+  "where": {
+    "status": "available",
+    "price": { "$lt": 5000000 },
+    "region_id": "uuid-..."
+  },
+  "with": ["developer", "project"], // Eager load relations
+  "page": 1,
+  "limit": 20
+}
+```
 
 ### 12.9 WebSocket Events
 
@@ -2346,6 +2356,7 @@ SOCKET EVENTS:
 ## 13. Security & Privacy Controls
 
 ### 13.1 Authentication Security
+
 - JWT with short expiry (15 min access, 7 day refresh)
 - Token blacklisting on logout
 - Device fingerprinting
@@ -2353,6 +2364,7 @@ SOCKET EVENTS:
 - Two-factor authentication (optional)
 
 ### 13.2 Data Protection
+
 ```
 SECURITY MEASURES:
 ├── Encryption
@@ -2374,6 +2386,7 @@ SECURITY MEASURES:
 ```
 
 ### 13.3 Privacy Features
+
 - Profile visibility settings
 - Block user functionality
 - Data export (GDPR compliance)
@@ -2382,6 +2395,7 @@ SECURITY MEASURES:
 - Content visibility controls
 
 ### 13.4 Audit Logging
+
 ```
 LOGGED EVENTS:
 ├── Authentication (login, logout, password change)
@@ -2555,7 +2569,8 @@ REPORT CATEGORIES:
 
 The Brocker platform now features a **comprehensive Seller Portfolio System** that transforms basic seller profiles into powerful professional showcases:
 
-#### Key Features:
+#### Key Features
+
 - **8 Modular Components**: Identity, Credentials, Showcase, Services, Performance, Social, Reviews, and Company modules
 - **Portfolio Completeness Tracking**: 0-100% scoring system with visibility benefits
 - **Professional Credentials**: Licenses, certifications, awards, and education tracking
@@ -2565,7 +2580,8 @@ The Brocker platform now features a **comprehensive Seller Portfolio System** th
 - **Privacy Controls**: Granular visibility settings per module
 - **Analytics Dashboard**: Comprehensive tracking of profile views, engagement, and performance
 
-#### Database Impact:
+#### Database Impact
+
 - **New Tables**: `seller_profiles` (enhanced), `seller_profiles_lang`, `seller_credentials`, `seller_credentials_lang`, `seller_reviews`, `seller_reviews_lang`
 - **50+ New Fields**: Covering all aspects of professional identity and performance
 
@@ -2573,7 +2589,8 @@ The Brocker platform now features a **comprehensive Seller Portfolio System** th
 
 The platform implements a **Vertical Language System** for scalable multi-language support:
 
-#### Key Features:
+#### Key Features
+
 - **Base + Translation Table Pattern**: Clean separation of data and translations
 - **Flattening Mechanism**: Automatic merging of translations at API layer
 - **Fallback Support**: Graceful degradation to default language
@@ -2582,13 +2599,15 @@ The platform implements a **Vertical Language System** for scalable multi-langua
 - **Translation Coverage Tracking**: Monitoring of translation completeness
 - **Performance Optimization**: Materialized views for frequently accessed data
 
-#### Database Impact:
+#### Database Impact
+
 - **New Tables**: `languages`, `ui_labels`, `ui_labels_lang`
 - **Translation Tables**: `seller_profiles_lang`, `properties_lang`, `posts_lang`, `reels_lang`, `property_categories_lang`, `amenities_lang`, `seller_credentials_lang`, `seller_reviews_lang`
 - **Naming Convention**: All translation tables follow `{table}_lang` pattern
 - **Initial Support**: Arabic (default), English, French
 
-#### Technical Implementation:
+#### Technical Implementation
+
 ```
 Translation Flow:
 1. Client requests data with ?lang=ar parameter
@@ -2603,14 +2622,16 @@ Translation Flow:
 
 The database schema has been significantly enhanced:
 
-#### Statistics:
+#### Statistics
+
 - **Total Tables**: 40+ (including all translation tables)
 - **Translation Tables**: 10+ dedicated `_lang` tables
 - **New Indexes**: 50+ for optimized query performance
 - **JSONB Fields**: 15+ for flexible, schema-less data storage
 - **Foreign Keys**: 60+ maintaining referential integrity
 
-#### Key Improvements:
+#### Key Improvements
+
 - **Normalized Structure**: Separation of translatable and non-translatable data
 - **Scalability**: Easy addition of new languages without schema changes
 - **Performance**: Strategic indexing on frequently queried fields
@@ -2620,6 +2641,7 @@ The database schema has been significantly enhanced:
 ### 17.4 API Enhancements
 
 All API endpoints now support:
+
 - **Language Parameter**: `?lang=ar` for requesting specific translations
 - **Translation CRUD**: Dedicated endpoints for managing translations
 - **Bulk Operations**: Creating records with multiple language versions
@@ -2628,6 +2650,7 @@ All API endpoints now support:
 ### 17.5 Frontend Requirements
 
 The frontend must implement:
+
 - **Language Switcher**: UI component for changing active language
 - **RTL/LTR Support**: Dynamic direction switching based on language
 - **Translation Helper**: Utility function for accessing UI labels
@@ -2637,6 +2660,7 @@ The frontend must implement:
 ### 17.6 Migration Path
 
 For existing implementations:
+
 1. **Phase 1**: Create all `_lang` tables
 2. **Phase 2**: Migrate existing text data to translation tables
 3. **Phase 3**: Update API layer to use flattening mechanism
