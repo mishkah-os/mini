@@ -1,0 +1,350 @@
+{
+    "version": 1,
+    "meta": {
+        "branchId": "aqar2",
+        "moduleId": "brocker2",
+        "counter": 0,
+        "labCounter": 0
+    },
+    "tables": {
+        "app_settings": [
+            {
+                "id": "settings-main",
+                "theme_color": "#0f172a"
+            }
+        ],
+        "app_settings_lang": [
+            {
+                "id": "settings-ar",
+                "app_settings_id": "settings-main",
+                "lang": "ar",
+                "brand_name": "عقار برو",
+                "tagline": "منصتك العقارية الشاملة"
+            },
+            {
+                "id": "settings-en",
+                "app_settings_id": "settings-main",
+                "lang": "en",
+                "brand_name": "Aqar Pro",
+                "tagline": "Your Comprehensive Real Estate Platform"
+            }
+        ],
+        "regions": [
+            {
+                "id": "reg-cairo",
+                "priority": 10
+            },
+            {
+                "id": "reg-riyadh",
+                "priority": 9
+            },
+            {
+                "id": "reg-dubai",
+                "priority": 8
+            }
+        ],
+        "regions_lang": [
+            {
+                "id": "reg-cairo-ar",
+                "regions_id": "reg-cairo",
+                "lang": "ar",
+                "name": "القاهرة الجديدة",
+                "city": "القاهرة"
+            },
+            {
+                "id": "reg-cairo-en",
+                "regions_id": "reg-cairo",
+                "lang": "en",
+                "name": "New Cairo",
+                "city": "Cairo"
+            },
+            {
+                "id": "reg-riyadh-ar",
+                "regions_id": "reg-riyadh",
+                "lang": "ar",
+                "name": "شمال الرياض",
+                "city": "الرياض"
+            },
+            {
+                "id": "reg-riyadh-en",
+                "regions_id": "reg-riyadh",
+                "lang": "en",
+                "name": "North Riyadh",
+                "city": "Riyadh"
+            },
+            {
+                "id": "reg-dubai-ar",
+                "regions_id": "reg-dubai",
+                "lang": "ar",
+                "name": "وسط مدينة دبي",
+                "city": "دبي"
+            },
+            {
+                "id": "reg-dubai-en",
+                "regions_id": "reg-dubai",
+                "lang": "en",
+                "name": "Downtown Dubai",
+                "city": "Dubai"
+            }
+        ],
+        "developers": [
+            {
+                "id": "dev-emaar",
+                "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Emaar_Properties_logo.svg/1200px-Emaar_Properties_logo.svg.png",
+                "contact_phone": "+97143661688"
+            },
+            {
+                "id": "dev-tmg",
+                "logo_url": "https://www.talaatmoustafa.com/Uploads/Images/logo.png",
+                "contact_phone": "19691"
+            },
+            {
+                "id": "dev-palm",
+                "logo_url": "https://phdint.com/wp-content/uploads/2021/08/Palm-Hills-Developments-Logo.png",
+                "contact_phone": "19323"
+            }
+        ],
+        "developers_lang": [
+            {
+                "id": "dev-emaar-ar",
+                "developers_id": "dev-emaar",
+                "lang": "ar",
+                "company_name": "إعمار العقارية",
+                "description": "رائدة التطوير العقاري في المنطقة."
+            },
+            {
+                "id": "dev-emaar-en",
+                "developers_id": "dev-emaar",
+                "lang": "en",
+                "company_name": "Emaar Properties",
+                "description": "Analyzing the future of living."
+            },
+            {
+                "id": "dev-tmg-ar",
+                "developers_id": "dev-tmg",
+                "lang": "ar",
+                "company_name": "مجموعة طلعت مصطفى",
+                "description": "بناء مجتمعات متكاملة."
+            },
+            {
+                "id": "dev-tmg-en",
+                "developers_id": "dev-tmg",
+                "lang": "en",
+                "company_name": "TMG Holding",
+                "description": "Building integrated communities."
+            },
+            {
+                "id": "dev-palm-ar",
+                "developers_id": "dev-palm",
+                "lang": "ar",
+                "company_name": "بالم هيلز",
+                "description": "تطوير عقاري فاخر."
+            },
+            {
+                "id": "dev-palm-en",
+                "developers_id": "dev-palm",
+                "lang": "en",
+                "company_name": "Palm Hills",
+                "description": "Luxury real estate development."
+            }
+        ],
+        "projects": [
+            {
+                "id": "proj-marassi",
+                "developer_id": "dev-emaar",
+                "region_id": "reg-cairo",
+                "status": "delivered",
+                "delivery_date": "2023-01-01"
+            },
+            {
+                "id": "proj-noor",
+                "developer_id": "dev-tmg",
+                "region_id": "reg-cairo",
+                "status": "under_construction",
+                "delivery_date": "2027-06-30"
+            },
+            {
+                "id": "proj-badya",
+                "developer_id": "dev-palm",
+                "region_id": "reg-cairo",
+                "status": "upcoming",
+                "delivery_date": "2028-01-01"
+            }
+        ],
+        "projects_lang": [
+            {
+                "id": "proj-marassi-ar",
+                "projects_id": "proj-marassi",
+                "lang": "ar",
+                "project_name": "مراسي",
+                "description": "جوهرة الساحل الشمالي."
+            },
+            {
+                "id": "proj-marassi-en",
+                "projects_id": "proj-marassi",
+                "lang": "en",
+                "project_name": "Marassi",
+                "description": "The jewel of the North Coast."
+            },
+            {
+                "id": "proj-noor-ar",
+                "projects_id": "proj-noor",
+                "lang": "ar",
+                "project_name": "مدينة نور",
+                "description": "مدينة ذكية متكاملة أمام العاصمة الإدارية."
+            },
+            {
+                "id": "proj-noor-en",
+                "projects_id": "proj-noor",
+                "lang": "en",
+                "project_name": "Noor City",
+                "description": "Integrated smart city facing the New Capital."
+            },
+            {
+                "id": "proj-badya-ar",
+                "projects_id": "proj-badya",
+                "lang": "ar",
+                "project_name": "بادية",
+                "description": "المدينة الإبداعية في غرب القاهرة."
+            },
+            {
+                "id": "proj-badya-en",
+                "projects_id": "proj-badya",
+                "lang": "en",
+                "project_name": "Badya",
+                "description": "The creative city in West Cairo."
+            }
+        ],
+        "units": [
+            {
+                "id": "u-m-01",
+                "project_id": "proj-marassi",
+                "unit_code": "V-102",
+                "type": "villa",
+                "price": 15000000,
+                "area": 350,
+                "bedrooms": 5,
+                "bathrooms": 4,
+                "status": "available"
+            },
+            {
+                "id": "u-m-02",
+                "project_id": "proj-marassi",
+                "unit_code": "C-45",
+                "type": "chalet",
+                "price": 6500000,
+                "area": 120,
+                "bedrooms": 2,
+                "bathrooms": 2,
+                "status": "reserved"
+            },
+            {
+                "id": "u-n-01",
+                "project_id": "proj-noor",
+                "unit_code": "A-501",
+                "type": "apartment",
+                "price": 3200000,
+                "area": 145,
+                "bedrooms": 3,
+                "bathrooms": 2,
+                "status": "available"
+            },
+            {
+                "id": "u-b-01",
+                "project_id": "proj-badya",
+                "unit_code": "TW-12",
+                "type": "townhouse",
+                "price": 8600000,
+                "area": 210,
+                "bedrooms": 3,
+                "bathrooms": 3,
+                "status": "available"
+            }
+        ],
+        "units_lang": [
+            {
+                "id": "ul-m-01-ar",
+                "units_id": "u-m-01",
+                "lang": "ar",
+                "description": "فيلا مستقلة صف أول على البحر.",
+                "view_type": "Sea View"
+            },
+            {
+                "id": "ul-m-01-en",
+                "units_id": "u-m-01",
+                "lang": "en",
+                "description": "Standalone villa first row on the sea.",
+                "view_type": "Sea View"
+            },
+            {
+                "id": "ul-m-02-ar",
+                "units_id": "u-m-02",
+                "lang": "ar",
+                "description": "شاليه غرفتين قريب من الكلوب هاوس.",
+                "view_type": "Pool View"
+            },
+            {
+                "id": "ul-n-01-ar",
+                "units_id": "u-n-01",
+                "lang": "ar",
+                "description": "شقة ذكية تشطيب كامل.",
+                "view_type": "Garden View"
+            },
+            {
+                "id": "ul-b-01-ar",
+                "units_id": "u-b-01",
+                "lang": "ar",
+                "description": "تاون هاوس كورنر.",
+                "view_type": "Park View"
+            }
+        ],
+        "posts": [
+            {
+                "id": "post-1",
+                "author_id": "auth-sys",
+                "content": "🎉 تم فتح باب الحجز في المرحلة الجديدة من مشروع مدينة نور بمقدم 5% فقط!",
+                "created_at": "2023-10-25T10:00:00Z"
+            },
+            {
+                "id": "post-2",
+                "author_id": "auth-sys",
+                "content": "🏡 نصائح هامة عند استلام وحدتك السكنية: تأكد من مراجعة التشطيبات والقياسات بدقة.",
+                "created_at": "2023-10-24T14:30:00Z"
+            }
+        ],
+        "reels": [
+            {
+                "id": "reel-1",
+                "author_id": "auth-sys",
+                "video_url": "https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-with-incredible-views-at-night-2425-large.mp4",
+                "caption": "جولة في شقة الأحلام ✨",
+                "likes_count": 1250
+            },
+            {
+                "id": "reel-2",
+                "author_id": "auth-sys",
+                "video_url": "https://assets.mixkit.co/videos/preview/mixkit-swimming-pool-in-a-luxury-hotel-at-sunset-4767-large.mp4",
+                "caption": "حياة الرفاهية في مراسي 🌊",
+                "likes_count": 890
+            }
+        ],
+        "notifications": [
+            {
+                "id": "notif-1",
+                "user_id": "guid-user-1",
+                "title": "عرض خاص",
+                "body": "خصم 10% لفترة محدودة على وحدات الكاش",
+                "is_read": false,
+                "created_at": "2023-10-26T09:00:00Z"
+            },
+            {
+                "id": "notif-2",
+                "user_id": "guid-user-1",
+                "title": "تحديث حالة الطلب",
+                "body": "تمت الموافقة على طلب الحجز المبدئي",
+                "is_read": true,
+                "created_at": "2023-10-25T11:00:00Z"
+            }
+        ]
+    }
+}
