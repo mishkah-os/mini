@@ -27,70 +27,6 @@
     return findById(db.data.users, userId);
   }
 
-  function getUserLang(db, userId) {
-    var i;
-    for (i = 0; i < db.data.users_lang.length; i += 1) {
-      if (db.data.users_lang[i].users_id === userId && db.data.users_lang[i].lang === db.env.lang) {
-        return db.data.users_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.users_lang.length; i += 1) {
-      if (db.data.users_lang[i].users_id === userId) {
-        return db.data.users_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getListingLang(db, listingId) {
-    var i;
-    for (i = 0; i < db.data.listings_lang.length; i += 1) {
-      if (db.data.listings_lang[i].listings_id === listingId && db.data.listings_lang[i].lang === db.env.lang) {
-        return db.data.listings_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.listings_lang.length; i += 1) {
-      if (db.data.listings_lang[i].listings_id === listingId) {
-        return db.data.listings_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getMedia(db, mediaId) {
-    return findById(db.data.media_assets, mediaId);
-  }
-
-  function getPostLang(db, postId) {
-    var i;
-    for (i = 0; i < db.data.posts_lang.length; i += 1) {
-      if (db.data.posts_lang[i].posts_id === postId && db.data.posts_lang[i].lang === db.env.lang) {
-        return db.data.posts_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.posts_lang.length; i += 1) {
-      if (db.data.posts_lang[i].posts_id === postId) {
-        return db.data.posts_lang[i];
-      }
-    }
-    return null;
-  }
-
-  function getReelLang(db, reelId) {
-    var i;
-    for (i = 0; i < db.data.reels_lang.length; i += 1) {
-      if (db.data.reels_lang[i].reels_id === reelId && db.data.reels_lang[i].lang === db.env.lang) {
-        return db.data.reels_lang[i];
-      }
-    }
-    for (i = 0; i < db.data.reels_lang.length; i += 1) {
-      if (db.data.reels_lang[i].reels_id === reelId) {
-        return db.data.reels_lang[i];
-      }
-    }
-    return null;
-  }
-
   function formatPrice(listing) {
     if (!listing) return '';
     if (listing.price_amount == null) return '';
@@ -104,6 +40,9 @@
       var next = Object.assign({}, state);
       next.env = Object.assign({}, state.env);
       next.env.theme = next.env.theme === 'dark' ? 'light' : 'dark';
+      if (next.data && next.data.activity_log) {
+        next.data.activity_log = next.data.activity_log.concat([{ type: 'theme', value: next.env.theme, ts: Date.now() }]);
+      }
       return next;
     });
   }
@@ -114,6 +53,9 @@
       next.env = Object.assign({}, state.env);
       next.env.lang = next.env.lang === 'ar' ? 'en' : 'ar';
       next.env.dir = next.env.lang === 'ar' ? 'rtl' : 'ltr';
+      if (next.data && next.data.activity_log) {
+        next.data.activity_log = next.data.activity_log.concat([{ type: 'lang', value: next.env.lang, ts: Date.now() }]);
+      }
       return next;
     });
   }
@@ -123,6 +65,19 @@
       var next = Object.assign({}, state);
       next.data = Object.assign({}, state.data);
       next.data.currentScreen = screenName;
+      if (next.data && next.data.activity_log) {
+        next.data.activity_log = next.data.activity_log.concat([{ type: 'nav', value: screenName, ts: Date.now() }]);
+      }
+      return next;
+    });
+  }
+
+  function logEvent(ctx, payload) {
+    ctx.setState(function (state) {
+      var next = Object.assign({}, state);
+      next.data = Object.assign({}, state.data);
+      if (!next.data.activity_log) next.data.activity_log = [];
+      next.data.activity_log = next.data.activity_log.concat([payload]);
       return next;
     });
   }
@@ -130,14 +85,10 @@
   return {
     t: t,
     getUser: getUser,
-    getUserLang: getUserLang,
-    getListingLang: getListingLang,
-    getPostLang: getPostLang,
-    getReelLang: getReelLang,
-    getMedia: getMedia,
     formatPrice: formatPrice,
     toggleTheme: toggleTheme,
     toggleLang: toggleLang,
-    navigateTo: navigateTo
+    navigateTo: navigateTo,
+    logEvent: logEvent
   };
 }));

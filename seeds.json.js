@@ -1,283 +1,213 @@
 window.db = {
   "data": {
+    "seed_version": "2026-02-10",
     "currentScreen": "home",
+    "demo_accounts": [
+      { "id": "demo-office", "role": "office", "code": "123456" },
+      { "id": "demo-user", "role": "user", "code": "123456" }
+    ],
+    "nav_items": [
+      { "id": "home", "label_key": "nav_home", "icon": "🏠" },
+      { "id": "reels", "label_key": "nav_reels", "icon": "🎬" },
+      { "id": "inbox", "label_key": "nav_inbox", "icon": "💬" },
+      { "id": "profile", "label_key": "nav_profile", "icon": "👤" }
+    ],
+    "filters": [
+      { "id": "all", "label_key": "filter_all" },
+      { "id": "rent", "label_key": "filter_rent" },
+      { "id": "sale", "label_key": "filter_sale" }
+    ],
+    "profile_stats": [
+      { "id": "listings", "label_key": "profile_stat_listings", "value": "3" },
+      { "id": "followers", "label_key": "profile_stat_followers", "value": "1.2k" },
+      { "id": "posts", "label_key": "profile_stat_posts", "value": "2" }
+    ],
+    "activity_log": [],
+    "forms": {
+      "login": {
+        "title_key": "login_title",
+        "fields": [
+          { "id": "phone", "input_type": "text", "placeholder_key": "login_phone_placeholder" },
+          { "id": "password", "input_type": "password", "placeholder_key": "login_password_placeholder" }
+        ]
+      },
+      "register": {
+        "title_key": "register_title",
+        "fields": [
+          { "id": "full_name", "input_type": "text", "placeholder_key": "register_name_placeholder" },
+          { "id": "phone", "input_type": "text", "placeholder_key": "register_phone_placeholder" },
+          {
+            "id": "role",
+            "component": "select",
+            "options": [
+              { "id": "office", "label_key": "role_office" },
+              { "id": "user", "label_key": "role_user" }
+            ]
+          }
+        ]
+      },
+      "otp": {
+        "title_key": "otp_title",
+        "fields": [
+          { "id": "otp", "input_type": "text", "placeholder_key": "otp_placeholder" }
+        ]
+      },
+      "profile": {
+        "title_key": "profile_edit_title",
+        "fields": [
+          { "id": "display_name", "input_type": "text", "placeholder_key": "profile_name_placeholder" },
+          { "id": "bio", "component": "textarea", "placeholder_key": "profile_bio_placeholder" },
+          { "id": "city", "input_type": "text", "placeholder_key": "profile_city_placeholder" },
+          { "id": "logo", "input_type": "text", "placeholder_key": "profile_logo_placeholder" }
+        ]
+      },
+      "listing": {
+        "title_key": "listing_form_title",
+        "fields": [
+          { "id": "headline", "input_type": "text", "placeholder_key": "listing_headline_placeholder" },
+          { "id": "description", "component": "textarea", "placeholder_key": "listing_description_placeholder" },
+          { "id": "price", "input_type": "number", "placeholder_key": "listing_price_placeholder" },
+          { "id": "city", "input_type": "text", "placeholder_key": "listing_city_placeholder" },
+          {
+            "id": "type",
+            "component": "select",
+            "options": [
+              { "id": "rent", "label_key": "filter_rent" },
+              { "id": "sale", "label_key": "filter_sale" }
+            ]
+          }
+        ]
+      }
+    },
     "users": [
       {
         "id": "11111111-1111-1111-1111-111111111111",
         "phone": "+201000000001",
         "status": "active",
         "created_at": "2026-02-01T10:00:00Z",
-        "updated_at": "2026-02-01T10:30:00Z"
+        "updated_at": "2026-02-01T10:30:00Z",
+        "full_name": "كريم الجندي",
+        "display_name": "كريم الجندي",
+        "bio": "وسيط عقاري متخصص في شقق التجمع",
+        "avatar_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
       },
       {
         "id": "22222222-2222-2222-2222-222222222222",
         "phone": "+201000000002",
         "status": "active",
         "created_at": "2026-02-01T11:00:00Z",
-        "updated_at": "2026-02-01T11:20:00Z"
-      }
-    ],
-    "users_lang": [
-      {
-        "id": "a1111111-1111-1111-1111-111111111111",
-        "users_id": "11111111-1111-1111-1111-111111111111",
-        "lang": "ar",
-        "full_name": "كريم الجندي",
-        "bio": "وسيط عقاري متخصص في شقق التجمع"
-      },
-      {
-        "id": "a1111111-1111-1111-1111-111111111112",
-        "users_id": "11111111-1111-1111-1111-111111111111",
-        "lang": "en",
-        "full_name": "Karim Elgendy",
-        "bio": "Broker focused on New Cairo apartments"
-      },
-      {
-        "id": "a2222222-2222-2222-2222-222222222221",
-        "users_id": "22222222-2222-2222-2222-222222222222",
-        "lang": "ar",
+        "updated_at": "2026-02-01T11:20:00Z",
         "full_name": "سارة شريف",
-        "bio": "باحثة عن سكن بواجهة اجتماعية"
-      },
-      {
-        "id": "a2222222-2222-2222-2222-222222222222",
-        "users_id": "22222222-2222-2222-2222-222222222222",
-        "lang": "en",
-        "full_name": "Sara Sherif",
-        "bio": "Home seeker who loves social discovery"
-      }
-    ],
-    "user_locations": [
-      {
-        "id": "b1111111-1111-1111-1111-111111111111",
-        "user_id": "11111111-1111-1111-1111-111111111111",
-        "lat": 30.0123,
-        "lng": 31.4289,
-        "place_id": "ChIJX1",
-        "formatted_address": "New Cairo, Egypt",
-        "created_at": "2026-02-01T12:00:00Z"
-      },
-      {
-        "id": "b2222222-2222-2222-2222-222222222222",
-        "user_id": "22222222-2222-2222-2222-222222222222",
-        "lat": 30.0501,
-        "lng": 31.3456,
-        "place_id": "ChIJX2",
-        "formatted_address": "Nasr City, Egypt",
-        "created_at": "2026-02-01T12:05:00Z"
-      }
-    ],
-    "media_assets": [
-      {
-        "id": "c1111111-1111-1111-1111-111111111111",
-        "owner_id": "11111111-1111-1111-1111-111111111111",
-        "media_type": "image",
-        "media_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=900&auto=format&fit=crop",
-        "media_thumbnail_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=400&auto=format&fit=crop",
-        "duration_sec": null,
-        "metadata": { "room": 3, "bath": 2 },
-        "created_at": "2026-02-01T12:10:00Z"
-      },
-      {
-        "id": "c2222222-2222-2222-2222-222222222222",
-        "owner_id": "11111111-1111-1111-1111-111111111111",
-        "media_type": "video",
-        "media_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=900&auto=format&fit=crop",
-        "media_thumbnail_url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=400&auto=format&fit=crop",
-        "duration_sec": 18.5,
-        "metadata": { "type": "reel" },
-        "created_at": "2026-02-01T12:12:00Z"
-      },
-      {
-        "id": "c3333333-3333-3333-3333-333333333333",
-        "owner_id": "22222222-2222-2222-2222-222222222222",
-        "media_type": "image",
-        "media_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=900&auto=format&fit=crop",
-        "media_thumbnail_url": "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=400&auto=format&fit=crop",
-        "duration_sec": null,
-        "metadata": { "note": "post" },
-        "created_at": "2026-02-01T12:14:00Z"
+        "display_name": "سارة شريف",
+        "bio": "باحثة عن سكن بواجهة اجتماعية",
+        "avatar_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
       }
     ],
     "listings": [
       {
         "id": "d1111111-1111-1111-1111-111111111111",
-        "owner_id": "11111111-1111-1111-1111-111111111111",
-        "primary_media_id": "c1111111-1111-1111-1111-111111111111",
-        "location_id": "b1111111-1111-1111-1111-111111111111",
+        "owner": {
+          "id": "11111111-1111-1111-1111-111111111111",
+          "display_name": "كريم الجندي",
+          "phone": "+201000000001"
+        },
+        "primary_media": {
+          "id": "c1111111-1111-1111-1111-111111111111",
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
+        },
+        "gallery": [
+          { "id": "g1", "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=", "label": "cover" },
+          { "id": "g2", "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=", "label": "living" }
+        ],
+        "location": {
+          "id": "b1111111-1111-1111-1111-111111111111",
+          "formatted_address": "New Cairo, Egypt",
+          "lat": 30.0123,
+          "lng": 31.4289
+        },
         "listing_type": "rent",
+        "listing_type_key": "filter_rent",
         "price_amount": 18500,
         "currency": "EGP",
         "status": "active",
         "created_at": "2026-02-01T12:20:00Z",
-        "updated_at": "2026-02-01T12:30:00Z"
-      },
-      {
-        "id": "d2222222-2222-2222-2222-222222222222",
-        "owner_id": "22222222-2222-2222-2222-222222222222",
-        "primary_media_id": "c3333333-3333-3333-3333-333333333333",
-        "location_id": "b2222222-2222-2222-2222-222222222222",
-        "listing_type": "sale",
-        "price_amount": 2500000,
-        "currency": "EGP",
-        "status": "active",
-        "created_at": "2026-02-01T13:00:00Z",
-        "updated_at": "2026-02-01T13:15:00Z"
-      },
-      {
-        "id": "d3333333-3333-3333-3333-333333333333",
-        "owner_id": "11111111-1111-1111-1111-111111111111",
-        "primary_media_id": "c2222222-2222-2222-2222-222222222222",
-        "location_id": "b1111111-1111-1111-1111-111111111111",
-        "listing_type": "rent",
-        "price_amount": 12000,
-        "currency": "EGP",
-        "status": "active",
-        "created_at": "2026-02-01T14:00:00Z",
-        "updated_at": "2026-02-01T14:10:00Z"
-      }
-    ],
-    "listings_lang": [
-      {
-        "id": "e1111111-1111-1111-1111-111111111111",
-        "listings_id": "d1111111-1111-1111-1111-111111111111",
-        "lang": "ar",
+        "updated_at": "2026-02-01T12:30:00Z",
         "headline": "شقة مفروشة في التجمع",
         "excerpt": "دوبلكس فاخر قريب من الخدمات",
         "description": "شقة 3 غرف، مفروشة بالكامل، جاهزة للسكن"
       },
       {
-        "id": "e1111111-1111-1111-1111-111111111112",
-        "listings_id": "d1111111-1111-1111-1111-111111111111",
-        "lang": "en",
-        "headline": "Furnished apartment in Fifth Settlement",
-        "excerpt": "Premium duplex close to amenities",
-        "description": "3-bedroom, fully furnished, move-in ready"
-      },
-      {
-        "id": "e2222222-2222-2222-2222-222222222221",
-        "listings_id": "d2222222-2222-2222-2222-222222222222",
-        "lang": "ar",
+        "id": "d2222222-2222-2222-2222-222222222222",
+        "owner": {
+          "id": "22222222-2222-2222-2222-222222222222",
+          "display_name": "سارة شريف",
+          "phone": "+201000000002"
+        },
+        "primary_media": {
+          "id": "c3333333-3333-3333-3333-333333333333",
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
+        },
+        "gallery": [
+          { "id": "g3", "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=", "label": "garden" },
+          { "id": "g4", "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=", "label": "front" }
+        ],
+        "location": {
+          "id": "b2222222-2222-2222-2222-222222222222",
+          "formatted_address": "Nasr City, Egypt",
+          "lat": 30.0501,
+          "lng": 31.3456
+        },
+        "listing_type": "sale",
+        "listing_type_key": "filter_sale",
+        "price_amount": 2500000,
+        "currency": "EGP",
+        "status": "active",
+        "created_at": "2026-02-01T13:00:00Z",
+        "updated_at": "2026-02-01T13:15:00Z",
         "headline": "فيلا للبيع في مدينة نصر",
         "excerpt": "فيلا 4 غرف بحديقة واسعة",
         "description": "فيلا مستقلة بحديقة، موقع ممتاز"
-      },
-      {
-        "id": "e2222222-2222-2222-2222-222222222222",
-        "listings_id": "d2222222-2222-2222-2222-222222222222",
-        "lang": "en",
-        "headline": "Villa for sale in Nasr City",
-        "excerpt": "4-bedroom villa with spacious garden",
-        "description": "Standalone villa with garden, prime location"
-      },
-      {
-        "id": "e3333333-3333-3333-3333-333333333331",
-        "listings_id": "d3333333-3333-3333-3333-333333333333",
-        "lang": "ar",
-        "headline": "شقة اقتصادية للإيجار",
-        "excerpt": "شقة غرفتين بموقع متميز",
-        "description": "شقة مناسبة للعائلات الصغيرة"
-      },
-      {
-        "id": "e3333333-3333-3333-3333-333333333332",
-        "listings_id": "d3333333-3333-3333-3333-333333333333",
-        "lang": "en",
-        "headline": "Affordable apartment for rent",
-        "excerpt": "2-bedroom in prime location",
-        "description": "Perfect for small families"
       }
     ],
     "posts": [
       {
         "id": "f1111111-1111-1111-1111-111111111111",
-        "owner_id": "22222222-2222-2222-2222-222222222222",
-        "media_id": "c3333333-3333-3333-3333-333333333333",
+        "owner": {
+          "id": "22222222-2222-2222-2222-222222222222",
+          "display_name": "سارة شريف"
+        },
+        "media": {
+          "id": "c3333333-3333-3333-3333-333333333333",
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw="
+        },
         "status": "active",
-        "created_at": "2026-02-01T12:40:00Z"
-      },
-      {
-        "id": "f2222222-2222-2222-2222-222222222222",
-        "owner_id": "11111111-1111-1111-1111-111111111111",
-        "media_id": "c1111111-1111-1111-1111-111111111111",
-        "status": "active",
-        "created_at": "2026-02-01T13:20:00Z"
-      }
-    ],
-    "posts_lang": [
-      {
-        "id": "g1111111-1111-1111-1111-111111111111",
-        "posts_id": "f1111111-1111-1111-1111-111111111111",
-        "lang": "ar",
+        "created_at": "2026-02-01T12:40:00Z",
         "caption": "جولة سريعة في الشقة قبل تسليم المفاتيح"
-      },
-      {
-        "id": "g1111111-1111-1111-1111-111111111112",
-        "posts_id": "f1111111-1111-1111-1111-111111111111",
-        "lang": "en",
-        "caption": "Quick walkthrough before handover"
-      },
-      {
-        "id": "g2222222-2222-2222-2222-222222222221",
-        "posts_id": "f2222222-2222-2222-2222-222222222222",
-        "lang": "ar",
-        "caption": "وحدة سكنية فاخرة جاهزة للمعاينة"
-      },
-      {
-        "id": "g2222222-2222-2222-2222-222222222222",
-        "posts_id": "f2222222-2222-2222-2222-222222222222",
-        "lang": "en",
-        "caption": "Luxury unit ready for viewing"
       }
     ],
     "reels": [
       {
         "id": "h1111111-1111-1111-1111-111111111111",
-        "owner_id": "11111111-1111-1111-1111-111111111111",
-        "media_id": "c2222222-2222-2222-2222-222222222222",
+        "owner": {
+          "id": "11111111-1111-1111-1111-111111111111",
+          "display_name": "كريم الجندي"
+        },
+        "media": {
+          "id": "c2222222-2222-2222-2222-222222222222",
+          "media_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "media_thumbnail_url": "data:image/gif;base64,R0lGODlhAQABAAAAACw=",
+          "binary_base64": "AA=="
+        },
         "status": "active",
-        "created_at": "2026-02-01T12:45:00Z"
-      }
-    ],
-    "reels_lang": [
-      {
-        "id": "i1111111-1111-1111-1111-111111111111",
-        "reels_id": "h1111111-1111-1111-1111-111111111111",
-        "lang": "ar",
+        "created_at": "2026-02-01T12:45:00Z",
         "caption": "لقطة ريلز فاخرة لشقة التجمع"
-      },
-      {
-        "id": "i1111111-1111-1111-1111-111111111112",
-        "reels_id": "h1111111-1111-1111-1111-111111111111",
-        "lang": "en",
-        "caption": "Luxury reel snap from New Cairo"
       }
     ],
-    "comments": [
-      {
-        "id": "j1111111-1111-1111-1111-111111111111",
-        "user_id": "22222222-2222-2222-2222-222222222222",
-        "target_type": "listing",
-        "target_id": "d1111111-1111-1111-1111-111111111111",
-        "body": "المنظر رائع، هل متاحة الآن؟",
-        "created_at": "2026-02-01T12:50:00Z"
-      }
-    ],
-    "likes": [
-      {
-        "id": "k1111111-1111-1111-1111-111111111111",
-        "user_id": "22222222-2222-2222-2222-222222222222",
-        "target_type": "listing",
-        "target_id": "d1111111-1111-1111-1111-111111111111",
-        "created_at": "2026-02-01T12:55:00Z"
-      }
-    ],
-    "follows": [
-      {
-        "id": "l1111111-1111-1111-1111-111111111111",
-        "follower_id": "22222222-2222-2222-2222-222222222222",
-        "following_id": "11111111-1111-1111-1111-111111111111",
-        "created_at": "2026-02-01T13:00:00Z"
-      }
+    "tickets": [
+      { "id": "t1", "title": "طلب معاينة شقة التجمع", "status_label": "open" },
+      { "id": "t2", "title": "استفسار عن فيلا مدينة نصر", "status_label": "pending" }
     ]
   },
   "env": {
@@ -292,6 +222,7 @@ window.db = {
       "toggle_theme": { "ar": "الوضع", "en": "Theme" },
       "toggle_lang": { "ar": "اللغة", "en": "Language" },
       "lang_short": { "ar": "EN", "en": "AR" },
+      "search_placeholder": { "ar": "ابحث عن عقار أو منطقة", "en": "Search listings or locations" },
       "stories": { "ar": "القصص", "en": "Stories" },
       "nearby": { "ar": "قريب منك", "en": "Nearby" },
       "featured_listings": { "ar": "العقارات المميزة", "en": "Featured Listings" },
@@ -301,10 +232,53 @@ window.db = {
       "reels": { "ar": "ريلز", "en": "Reels" },
       "discover": { "ar": "استكشف", "en": "Discover" },
       "call_now": { "ar": "اتصل الآن", "en": "Call now" },
+      "filter_all": { "ar": "الكل", "en": "All" },
+      "filter_rent": { "ar": "إيجار", "en": "Rent" },
+      "filter_sale": { "ar": "بيع", "en": "Sale" },
       "nav_home": { "ar": "الرئيسية", "en": "Home" },
       "nav_reels": { "ar": "ريلز", "en": "Reels" },
       "nav_inbox": { "ar": "الرسائل", "en": "Inbox" },
-      "nav_profile": { "ar": "الملف", "en": "Profile" }
+      "nav_profile": { "ar": "الملف", "en": "Profile" },
+      "inbox_empty_title": { "ar": "لا توجد رسائل", "en": "No messages yet" },
+      "inbox_empty_body": { "ar": "ابدأ محادثة جديدة مع وسطاءك المفضلين.", "en": "Start a new conversation with your favorite brokers." },
+      "profile_stat_listings": { "ar": "العقارات", "en": "Listings" },
+      "profile_stat_followers": { "ar": "المتابعون", "en": "Followers" },
+      "profile_stat_posts": { "ar": "المنشورات", "en": "Posts" },
+      "login_title": { "ar": "تسجيل الدخول", "en": "Login" },
+      "register_title": { "ar": "إنشاء حساب", "en": "Register" },
+      "otp_title": { "ar": "رمز التحقق", "en": "OTP" },
+      "login_phone_placeholder": { "ar": "رقم الهاتف", "en": "Phone number" },
+      "login_password_placeholder": { "ar": "كلمة المرور", "en": "Password" },
+      "register_name_placeholder": { "ar": "الاسم الكامل", "en": "Full name" },
+      "register_phone_placeholder": { "ar": "رقم الهاتف", "en": "Phone number" },
+      "otp_placeholder": { "ar": "ادخل رمز 123456", "en": "Enter 123456" },
+      "role_office": { "ar": "مكتب عقارات", "en": "Office" },
+      "role_user": { "ar": "مستخدم", "en": "User" },
+      "login": { "ar": "دخول", "en": "Login" },
+      "register": { "ar": "تسجيل", "en": "Register" },
+      "continue": { "ar": "متابعة", "en": "Continue" },
+      "verify": { "ar": "تأكيد", "en": "Verify" },
+      "edit_profile": { "ar": "تعديل الملف", "en": "Edit profile" },
+      "save_changes": { "ar": "حفظ التغييرات", "en": "Save changes" },
+      "profile_edit_title": { "ar": "تعديل الملف الشخصي", "en": "Edit profile" },
+      "profile_name_placeholder": { "ar": "اسم العرض", "en": "Display name" },
+      "profile_bio_placeholder": { "ar": "نبذة قصيرة", "en": "Short bio" },
+      "profile_city_placeholder": { "ar": "المدينة", "en": "City" },
+      "profile_logo_placeholder": { "ar": "رابط الشعار (Base64)", "en": "Logo base64" },
+      "listing_form_title": { "ar": "إنشاء إعلان", "en": "Create listing" },
+      "listing_headline_placeholder": { "ar": "عنوان الإعلان", "en": "Listing title" },
+      "listing_description_placeholder": { "ar": "وصف الإعلان", "en": "Listing description" },
+      "listing_price_placeholder": { "ar": "السعر", "en": "Price" },
+      "listing_city_placeholder": { "ar": "المدينة", "en": "City" },
+      "publish_listing": { "ar": "نشر الإعلان", "en": "Publish listing" },
+      "view_details": { "ar": "عرض التفاصيل", "en": "View details" },
+      "listing_location": { "ar": "الموقع", "en": "Location" },
+      "request_listing": { "ar": "طلب معاينة", "en": "Request visit" },
+      "office_dashboard": { "ar": "لوحة المكتب", "en": "Office dashboard" },
+      "reel_title": { "ar": "تفاصيل الريل", "en": "Reel details" },
+      "like": { "ar": "إعجاب", "en": "Like" },
+      "comment": { "ar": "تعليق", "en": "Comment" },
+      "save": { "ar": "حفظ", "en": "Save" }
     }
   }
-}
+};

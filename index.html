@@ -16,12 +16,24 @@
   <script src="functions.js"></script>
   <script src="orders.js"></script>
   <script src="borker-ui.js"></script>
+  <script src="indexeddb-util.js"></script>
   <script src="seeds.json.js"></script>
 
   <script>
+    var seedConfig = {
+      name: 'brocker-db',
+      version: 2,
+      stores: [
+        { name: 'meta', keyPath: 'id' },
+        { name: 'data', keyPath: 'id' },
+        { name: 'logs', keyPath: 'id', autoIncrement: true }
+      ]
+    };
 
-    Mishkah.app.setBody(BrockerUI.body);
-    Mishkah.app.create(window.db, BrockerOrders).mount('#app');
+    IndexedDBUtil.seedDatabase(seedConfig, window.db).then(function (loaded) {
+      Mishkah.app.setBody(BrockerUI.body);
+      Mishkah.app.create(loaded, BrockerOrders).mount('#app');
+    });
   </script>
 </body>
 
