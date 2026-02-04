@@ -61,7 +61,7 @@
           D.Div({ attrs: { class: 'ui-text-small ui-text-muted mt-2' } }, [listings[i].excerpt || '']),
           D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [
             UI.PriceTag({}, [F.formatPrice(listings[i])]),
-            UI.ButtonGhost({ as: 'a', attrs: { href: 'tel:' + (listings[i].owner.phone || ''), class: 'ui-text-small' } }, [F.t(db, 'call_now')])
+            UI.ButtonGhost({ attrs: { gkey: 'listing:open', class: 'ui-text-small', 'data-listing-id': listings[i].id } }, [F.t(db, 'view_details')])
           ])
         ])
       );
@@ -102,7 +102,7 @@
     for (i = 0; i < reels.length; i += 1) {
       var reelMedia = reels[i].media || {};
       output.push(
-        UI.ReelTile({}, [
+        UI.ReelTile({ attrs: { gkey: 'reel:open', 'data-reel-id': reels[i].id } }, [
           D.Img({ attrs: { src: reelMedia.media_thumbnail_url || reelMedia.media_url || '', class: 'absolute inset-0 h-full w-full object-cover', alt: reels[i].caption || '' } }, []),
           D.Div({ attrs: { class: 'absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/20 to-transparent p-3' } }, [
             D.Div({ attrs: { class: 'ui-text-small text-white' } }, [reels[i].caption || ''])
@@ -111,6 +111,50 @@
       );
     }
     return UI.Grid({ columns: '2' }, output);
+  }
+
+  function renderMediaGallery(mediaItems) {
+    var output = [];
+    var i;
+    for (i = 0; i < mediaItems.length; i += 1) {
+      output.push(
+        UI.MediaThumb({}, [
+          D.Img({ attrs: { src: mediaItems[i].media_url || '', class: 'w-full h-40 object-cover', alt: mediaItems[i].label || '' } }, [])
+        ])
+      );
+    }
+    return UI.Grid({ columns: '2' }, output);
+  }
+
+  function renderFormFields(db, fields) {
+    var output = [];
+    var i;
+    for (i = 0; i < fields.length; i += 1) {
+      var field = fields[i];
+      if (field.component === 'textarea') {
+        output.push(UI.TextArea({ attrs: { placeholder: F.t(db, field.placeholder_key || ''), class: 'w-full' } }));
+      } else if (field.component === 'select') {
+        var options = field.options || [];
+        var optionNodes = [];
+        var j;
+        for (j = 0; j < options.length; j += 1) {
+          optionNodes.push(D.Option({ attrs: { value: options[j].id } }, [F.t(db, options[j].label_key || '')]));
+        }
+        output.push(UI.Select({ attrs: { class: 'w-full' } }, optionNodes));
+      } else {
+        output.push(UI.TextField({ attrs: { placeholder: F.t(db, field.placeholder_key || ''), type: field.input_type || 'text', class: 'w-full' } }));
+      }
+    }
+    return output;
+  }
+
+  function renderForm(db, form) {
+    if (!form) return [];
+    var fields = form.fields || [];
+    return UI.Section({}, [
+      UI.SectionTitle({}, [F.t(db, form.title_key || '')]),
+      D.Div({ attrs: { class: 'flex flex-col gap-3' } }, renderFormFields(db, fields))
+    ]);
   }
 
   function renderHomeScreen(db) {
@@ -139,6 +183,24 @@
       UI.Section({}, [
         UI.SectionTitle({}, [F.t(db, 'reels')]),
         renderReels(db)
+      ])
+    ]);
+  }
+
+  function renderReelDetailScreen(db) {
+    var reel = db.data.active_reel || (db.data.reels ? db.data.reels[0] : {});
+    var reelMedia = reel.media || {};
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.Card({ variant: 'raised' }, [
+        D.Div({ attrs: { class: 'ui-text-title' } }, [F.t(db, 'reel_title')]),
+        UI.MediaThumb({ attrs: { class: 'mt-3' } }, [
+          D.Img({ attrs: { class: 'w-full h-60 object-cover', src: reelMedia.media_url || '', alt: reel.caption || '' } }, [])
+        ]),
+        D.Div({ attrs: { class: 'flex items-center justify-between mt-3' } }, [
+          UI.ButtonGhost({ attrs: { gkey: 'reel:like' } }, [F.t(db, 'like')]),
+          UI.ButtonGhost({ attrs: { gkey: 'reel:comment' } }, [F.t(db, 'comment')]),
+          UI.ButtonGhost({ attrs: { gkey: 'reel:save' } }, [F.t(db, 'save')])
+        ])
       ])
     ]);
   }
@@ -177,13 +239,93 @@
             D.Div({ attrs: { class: 'ui-text-title' } }, [user.display_name || '']),
             D.Div({ attrs: { class: 'ui-text-body ui-text-muted mt-1' } }, [user.bio || ''])
           ])
-        ])
+        ]),
+        UI.ButtonSecondary({ attrs: { gkey: 'profile:edit', class: 'mt-4' } }, [F.t(db, 'edit_profile')])
       ]),
       UI.Grid({ columns: '3' }, statsNodes),
       UI.Section({}, [
         UI.SectionTitle({}, [F.t(db, 'latest_posts')]),
         renderPosts(db)
       ])
+    ]);
+  }
+
+  function renderProfileEditScreen(db) {
+    var form = db.data.forms ? db.data.forms.profile : null;
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      renderForm(db, form),
+      UI.ButtonPrimary({ attrs: { gkey: 'profile:save' } }, [F.t(db, 'save_changes')])
+    ]);
+  }
+
+  function renderListingDetailScreen(db) {
+    var listing = db.data.active_listing || (db.data.listings ? db.data.listings[0] : {});
+    var mediaItems = listing.gallery || [];
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.Section({}, [
+        UI.SectionTitle({}, [listing.headline || '']),
+        D.Div({ attrs: { class: 'ui-text-body ui-text-muted' } }, [listing.description || ''])
+      ]),
+      renderMediaGallery(mediaItems),
+      UI.Card({ variant: 'raised' }, [
+        D.Div({ attrs: { class: 'ui-text-body' } }, [F.t(db, 'listing_location')]),
+        D.Div({ attrs: { class: 'ui-text-small ui-text-muted mt-1' } }, [listing.location ? listing.location.formatted_address : ''])
+      ]),
+      UI.ButtonPrimary({ attrs: { gkey: 'listing:request' } }, [F.t(db, 'request_listing')])
+    ]);
+  }
+
+  function renderOfficeDashboardScreen(db) {
+    var tickets = db.data.tickets || [];
+    var ticketNodes = [];
+    var i;
+    for (i = 0; i < tickets.length; i += 1) {
+      ticketNodes.push(
+        UI.ListItem({}, [
+          D.Div({ attrs: { class: 'ui-text-body font-semibold' } }, [tickets[i].title || '']),
+          D.Div({ attrs: { class: 'ui-text-small ui-text-muted' } }, [tickets[i].status_label || ''])
+        ])
+      );
+    }
+
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      UI.Section({}, [
+        UI.SectionTitle({}, [F.t(db, 'office_dashboard')]),
+        UI.List({}, ticketNodes)
+      ])
+    ]);
+  }
+
+  function renderAuthScreen(db) {
+    var form = db.data.forms ? db.data.forms.login : null;
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      renderForm(db, form),
+      UI.ButtonPrimary({ attrs: { gkey: 'auth:login' } }, [F.t(db, 'login')]),
+      UI.ButtonGhost({ attrs: { gkey: 'auth:register' } }, [F.t(db, 'register')])
+    ]);
+  }
+
+  function renderRegisterScreen(db) {
+    var form = db.data.forms ? db.data.forms.register : null;
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      renderForm(db, form),
+      UI.ButtonPrimary({ attrs: { gkey: 'auth:otp' } }, [F.t(db, 'continue')])
+    ]);
+  }
+
+  function renderOtpScreen(db) {
+    var form = db.data.forms ? db.data.forms.otp : null;
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      renderForm(db, form),
+      UI.ButtonPrimary({ attrs: { gkey: 'auth:verify' } }, [F.t(db, 'verify')])
+    ]);
+  }
+
+  function renderCreateListingScreen(db) {
+    var form = db.data.forms ? db.data.forms.listing : null;
+    return UI.Screen({ attrs: { class: 'overflow-y-auto' } }, [
+      renderForm(db, form),
+      UI.ButtonPrimary({ attrs: { gkey: 'listing:create' } }, [F.t(db, 'publish_listing')])
     ]);
   }
 
@@ -198,7 +340,7 @@
         UI.ButtonGhost({
           attrs: {
             gkey: 'nav:' + items[i].id,
-            class: 'flex flex-col items-center gap-1 min-w-[60px] ' + (isActive ? 'text-[var(--mishkah-primary)]' : 'ui-text-muted')
+            class: 'flex flex-col items-center gap-1 min-w-[60px] ui-nav-item ' + (isActive ? 'ui-nav-active' : 'ui-text-muted')
           }
         }, [
           D.Div({ attrs: { class: 'text-lg' } }, [items[i].icon || '']),
@@ -215,10 +357,26 @@
 
     if (currentScreen === 'reels') {
       screenContent = renderReelsScreen(db);
+    } else if (currentScreen === 'reel_detail') {
+      screenContent = renderReelDetailScreen(db);
     } else if (currentScreen === 'inbox') {
       screenContent = renderInboxScreen(db);
     } else if (currentScreen === 'profile') {
       screenContent = renderProfileScreen(db);
+    } else if (currentScreen === 'profile_edit') {
+      screenContent = renderProfileEditScreen(db);
+    } else if (currentScreen === 'listing_detail') {
+      screenContent = renderListingDetailScreen(db);
+    } else if (currentScreen === 'office_dashboard') {
+      screenContent = renderOfficeDashboardScreen(db);
+    } else if (currentScreen === 'login') {
+      screenContent = renderAuthScreen(db);
+    } else if (currentScreen === 'register') {
+      screenContent = renderRegisterScreen(db);
+    } else if (currentScreen === 'otp') {
+      screenContent = renderOtpScreen(db);
+    } else if (currentScreen === 'create_listing') {
+      screenContent = renderCreateListingScreen(db);
     } else {
       screenContent = renderHomeScreen(db);
     }

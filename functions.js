@@ -40,6 +40,9 @@
       var next = Object.assign({}, state);
       next.env = Object.assign({}, state.env);
       next.env.theme = next.env.theme === 'dark' ? 'light' : 'dark';
+      if (next.data && next.data.activity_log) {
+        next.data.activity_log = next.data.activity_log.concat([{ type: 'theme', value: next.env.theme, ts: Date.now() }]);
+      }
       return next;
     });
   }
@@ -50,8 +53,9 @@
       next.env = Object.assign({}, state.env);
       next.env.lang = next.env.lang === 'ar' ? 'en' : 'ar';
       next.env.dir = next.env.lang === 'ar' ? 'rtl' : 'ltr';
-      next.data = JSON.parse(JSON.stringify(state.data));
-      applyTranslationsDeep(next.data, next.env.lang);
+      if (next.data && next.data.activity_log) {
+        next.data.activity_log = next.data.activity_log.concat([{ type: 'lang', value: next.env.lang, ts: Date.now() }]);
+      }
       return next;
     });
   }
@@ -61,6 +65,19 @@
       var next = Object.assign({}, state);
       next.data = Object.assign({}, state.data);
       next.data.currentScreen = screenName;
+      if (next.data && next.data.activity_log) {
+        next.data.activity_log = next.data.activity_log.concat([{ type: 'nav', value: screenName, ts: Date.now() }]);
+      }
+      return next;
+    });
+  }
+
+  function logEvent(ctx, payload) {
+    ctx.setState(function (state) {
+      var next = Object.assign({}, state);
+      next.data = Object.assign({}, state.data);
+      if (!next.data.activity_log) next.data.activity_log = [];
+      next.data.activity_log = next.data.activity_log.concat([payload]);
       return next;
     });
   }
@@ -71,6 +88,7 @@
     formatPrice: formatPrice,
     toggleTheme: toggleTheme,
     toggleLang: toggleLang,
-    navigateTo: navigateTo
+    navigateTo: navigateTo,
+    logEvent: logEvent
   };
 }));
