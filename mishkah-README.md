@@ -418,17 +418,17 @@ Define a token system (English names only), including:
 
 B) Component Inventory (Library)
 Create a complete mobile UI library with native look/feel, including but not limited to:
-Navigation
+NAVIGATION
 - AppShell, TopBar, BottomNav, TabBar, SegmentedControl, SearchBar
-Surfaces & Layout
+SURFACES & LAYOUT
 - Screen, Section, Card, DividerHairline, List, ListItem, Grid
-Inputs
+INPUTS
 - TextField, TextArea, Select, Switch, Checkbox, Radio, Chip
-Actions
+ACTIONS
 - ButtonPrimary, ButtonSecondary, ButtonGhost, IconButton, FloatingActionButton
-Feedback
+FEEDBACK
 - Toast, Snackbar, Dialog, BottomSheet, Loader, Skeleton, EmptyState, ErrorState
-Media
+MEDIA
 - Avatar, MediaThumb, Carousel, VideoTile
 For each component, specify in Mishkah DSL:
 - props, slots, variants, states, sizes
